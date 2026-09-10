@@ -1,5 +1,5 @@
-﻿# ==============================================================================
-# KrishiDrishti Edge - 6-Parameter Soil Sensor Configuration Template
+# ==============================================================================
+# TEJAS - 6-Parameter Soil Sensor Configuration Template
 # Module: 6-Parameter Soil Intelligence Module (NPK + pH + Moisture + Temperature)
 # Protocol: RS485 MODBUS-RTU
 # ==============================================================================

@@ -1,7 +1,7 @@
 # TEJAS
 
-> **"See. Sense. Predict. Act."**  
-> *Portable Offline AI-Powered Farming Assistant for Smart India Hackathon (SIH)*
+> **Technology Enabled Judicious Agriculture And soil sensor**  
+> *Portable Offline Edge AI Agriculture System for Smart India Hackathon (SIH)*
 
 ---
 

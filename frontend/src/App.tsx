@@ -1530,10 +1530,10 @@ export default function App() {
                         <div className="bg-amber-50 p-3 rounded-xl border border-amber-200 text-[11px] text-amber-900 space-y-1">
                           <div className="text-amber-800 font-bold flex items-center space-x-1">
                             <ShieldAlert className="w-3.5 h-3.5 shrink-0" />
-                            <span>99.63% top-1 accuracy on the held-out PlantVillage test set.</span>
+                            <span>PlantVillage held-out test: 99.63% Top-1</span>
                           </div>
                           <div>
-                            Prototype model trained on laboratory-style PlantVillage images; field validation is still required.
+                            Prototype model trained on laboratory-style PlantVillage images; real field conditions may introduce domain shift. Decision-support only.
                           </div>
                         </div>
                       </div>
@@ -2095,7 +2095,7 @@ export default function App() {
                     <div>Operation Mode: <b className="text-amber-700">{deviceStatus?.demo_mode ? 'DEMO_MODE=true' : 'REAL HARDWARE'}</b></div>
                     <div>Confidence Threshold: <b className="text-emerald-700">{((visionStatus?.confidence_threshold || 0.70) * 100).toFixed(0)}%</b></div>
                     <div>Zero Hardware Hallucination: <b className="text-emerald-700">ENFORCED (Strict Nullability)</b></div>
-                    <div>Database: <b className="text-slate-500">data/krishidrishti.db</b></div>
+                    <div>Database: <b className="text-slate-500">SQLite Local Storage (Offline)</b></div>
                   </div>
                 </div>
               )}
