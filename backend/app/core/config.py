@@ -17,7 +17,7 @@ class Settings(BaseSettings):
     # Core Application Settings
     PROJECT_NAME: str = "TEJAS"
     VERSION: str = "1.0.0-sih-prototype"
-    TAGLINE: str = "See. Sense. Predict. Act."
+    TAGLINE: str = "Technology Enabled Judicious Agriculture And soil sensor"
     APP_ENV: str = "development"
     DEBUG: bool = True
     DEMO_MODE: bool = True  # Strict gating: True enables mock telemetry; False enforces real hardware

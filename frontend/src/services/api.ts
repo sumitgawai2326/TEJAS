@@ -421,4 +421,26 @@ export const predictDisease = async (formData: FormData): Promise<DiseasePredict
   return response.data;
 };
 
+// Phase 13B Curated Sample Leaf Images
+export interface SampleImageItem {
+  id: string;
+  label: string;
+  class_name: string;
+  filename: string;
+  url: string;
+}
+
+export const fetchSampleImages = async (): Promise<SampleImageItem[]> => {
+  const response = await api.get('/v1/disease/samples');
+  return response.data;
+};
+
+export const fetchSampleImageBlob = async (sampleId: string): Promise<Blob> => {
+  const response = await api.get(`/v1/disease/samples/${sampleId}/image`, {
+    responseType: 'blob'
+  });
+  return response.data;
+};
+
 export default api;
+

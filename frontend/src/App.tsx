@@ -40,6 +40,9 @@ import {
   fetchDeviceSelfTest,
   fetchRegisteredModels,
   predictDisease,
+  fetchSampleImages,
+  fetchSampleImageBlob,
+  SampleImageItem,
   DeviceStatus, 
   FieldModel, 
   VisionAnalysisResponse, 
@@ -59,6 +62,19 @@ import mr from './i18n/locales/mr.json';
 
 const translations: Record<string, Record<string, string>> = { en, hi, mr };
 
+const DEFAULT_SAMPLES: SampleImageItem[] = [
+  { id: 'bacterial_spot', label: 'Bacterial Spot', class_name: 'Tomato_Bacterial_Spot', filename: 'sample_bacterial_spot.jpg', url: '/samples/sample_bacterial_spot.jpg' },
+  { id: 'early_blight', label: 'Early Blight', class_name: 'Tomato_Early_Blight', filename: 'sample_early_blight.jpg', url: '/samples/sample_early_blight.jpg' },
+  { id: 'healthy', label: 'Healthy', class_name: 'Tomato_Healthy', filename: 'sample_healthy.jpg', url: '/samples/sample_healthy.jpg' },
+  { id: 'late_blight', label: 'Late Blight', class_name: 'Tomato_Late_Blight', filename: 'sample_late_blight.jpg', url: '/samples/sample_late_blight.jpg' },
+  { id: 'yellow_leaf_curl', label: 'Yellow Leaf Curl', class_name: 'Tomato_Yellow_Leaf_Curl_Virus', filename: 'sample_yellow_leaf_curl.jpg', url: '/samples/sample_yellow_leaf_curl.jpg' },
+  { id: 'leaf_mold', label: 'Leaf Mold', class_name: 'Tomato_Leaf_Mold', filename: 'sample_leaf_mold.jpg', url: '/samples/sample_leaf_mold.jpg' },
+  { id: 'mosaic_virus', label: 'Mosaic Virus', class_name: 'Tomato_Mosaic_Virus', filename: 'sample_mosaic_virus.jpg', url: '/samples/sample_mosaic_virus.jpg' },
+  { id: 'septoria_leaf_spot', label: 'Septoria Leaf Spot', class_name: 'Tomato_Septoria_Leaf_Spot', filename: 'sample_septoria_leaf_spot.jpg', url: '/samples/sample_septoria_leaf_spot.jpg' },
+  { id: 'target_spot', label: 'Target Spot', class_name: 'Tomato_Target_Spot', filename: 'sample_target_spot.jpg', url: '/samples/sample_target_spot.jpg' },
+  { id: 'two_spotted_spider_mite', label: 'Spider Mite', class_name: 'Tomato_Two-Spotted_Spider_Mite', filename: 'sample_two_spotted_spider_mite.jpg', url: '/samples/sample_two_spotted_spider_mite.jpg' },
+];
+
 export default function App() {
   const [lang, setLang] = useState<'en' | 'hi' | 'mr'>('en');
   const [activeTab, setActiveTab] = useState<'home' | 'wizard' | 'fields' | 'scanner' | 'soil' | 'risk' | 'advisory' | 'history' | 'diagnostics' | 'settings'>('home');
@@ -77,6 +93,11 @@ export default function App() {
   const [diseasePrediction, setDiseasePrediction] = useState<DiseasePredictResponse | null>(null);
   const [isPredictingDisease, setIsPredictingDisease] = useState(false);
   const [diseasePredictError, setDiseasePredictError] = useState<string | null>(null);
+
+  // Curated Sample Images for Demo
+  const [samplesList, setSamplesList] = useState<SampleImageItem[]>(DEFAULT_SAMPLES);
+  const [selectedSampleId, setSelectedSampleId] = useState<string | null>(null);
+  const [isLoadingSample, setIsLoadingSample] = useState(false);
 
   // Guided Wizard State (Steps 1 to 7)
   const [wizardStep, setWizardStep] = useState<number>(1);
@@ -125,7 +146,7 @@ export default function App() {
     return () => clearInterval(interval);
   }, []);
 
-  // Load fields and AI status on startup
+  // Load fields, AI status, and sample catalog on startup
   useEffect(() => {
     refreshFields();
   }, []);
@@ -141,6 +162,14 @@ export default function App() {
       setVisionStatus(vStatus);
       const mRegistry = await fetchRegisteredModels();
       setModelRegistry(mRegistry);
+      try {
+        const samples = await fetchSampleImages();
+        if (samples && samples.length > 0) {
+          setSamplesList(samples);
+        }
+      } catch (e) {
+        console.warn("Could not fetch remote samples catalog, using default list", e);
+      }
     } catch (e) {
       console.error("Failed to load initial fields/vision/models data", e);
     }
@@ -183,12 +212,44 @@ export default function App() {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
       setSelectedFile(file);
+      setSelectedSampleId(null);
       setPreviewUrl(URL.createObjectURL(file));
       setScanResult(null);
       setScanError(null);
       setDiseasePrediction(null);
       setDiseasePredictError(null);
       handlePredictDisease(file);
+    }
+  };
+
+  const handleSelectSample = async (sample: SampleImageItem, autoRunInference = false) => {
+    setIsLoadingSample(true);
+    setSelectedSampleId(sample.id);
+    setScanError(null);
+    setDiseasePredictError(null);
+    try {
+      let blob: Blob;
+      try {
+        blob = await fetchSampleImageBlob(sample.id);
+      } catch {
+        const resp = await fetch(sample.url);
+        blob = await resp.blob();
+      }
+      const file = new File([blob], sample.filename, { type: 'image/jpeg' });
+      setSelectedFile(file);
+      setPreviewUrl(URL.createObjectURL(blob));
+      setScanResult(null);
+      setDiseasePrediction(null);
+      if (autoRunInference) {
+        await handlePredictDisease(file);
+      }
+      return file;
+    } catch (err: any) {
+      console.error("Error loading sample image", err);
+      setScanError("Failed to load sample image: " + (err.message || "Unknown error"));
+      return null;
+    } finally {
+      setIsLoadingSample(false);
     }
   };
 
@@ -212,15 +273,16 @@ export default function App() {
     }
   };
 
-  const executeScan = async (useCamera = false) => {
+  const executeScan = async (useCamera = false, fileOverride?: File) => {
     setIsScanning(true);
     setScanError(null);
     try {
       const formData = new FormData();
+      const targetFile = fileOverride || selectedFile;
       if (useCamera) {
         formData.append('use_camera', 'true');
-      } else if (selectedFile) {
-        formData.append('file', selectedFile);
+      } else if (targetFile) {
+        formData.append('file', targetFile);
       } else {
         formData.append('use_camera', 'true');
       }
@@ -760,16 +822,68 @@ export default function App() {
                         <p className="text-xs text-slate-400">{t('step_2_desc')}</p>
                       </div>
 
+                      {/* Quick Demo Sample Leaf Selector */}
+                      <div className="bg-slate-900/90 border border-slate-700/80 rounded-xl p-3.5 space-y-2.5">
+                        <div className="flex items-center justify-between">
+                          <div className="text-xs font-bold text-slate-200 flex items-center space-x-1.5">
+                            <Zap className="w-4 h-4 text-amber-400 shrink-0" />
+                            <span>Choose Sample Leaf (Verified Test Dataset):</span>
+                          </div>
+                          <span className="text-[10px] font-mono text-cyan-300 bg-cyan-950/80 border border-cyan-800/60 px-2 py-0.5 rounded">
+                            Real YOLO11n AI
+                          </span>
+                        </div>
+
+                        <div className="flex flex-wrap items-center gap-2">
+                          {samplesList.slice(0, 5).map(s => (
+                            <button
+                              key={s.id}
+                              type="button"
+                              onClick={() => handleSelectSample(s, false)}
+                              disabled={isLoadingSample || isScanning}
+                              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition border flex items-center space-x-1.5 ${
+                                selectedSampleId === s.id
+                                  ? 'bg-emerald-600 text-white border-emerald-400 shadow-md ring-1 ring-emerald-400'
+                                  : 'bg-slate-800 text-slate-200 border-slate-700 hover:bg-slate-700 hover:text-white'
+                              }`}
+                            >
+                              <span>{s.label}</span>
+                            </button>
+                          ))}
+
+                          <select
+                            value={selectedSampleId || ''}
+                            onChange={(e) => {
+                              const found = samplesList.find(x => x.id === e.target.value);
+                              if (found) handleSelectSample(found, false);
+                            }}
+                            className="bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-slate-300 font-medium ml-auto"
+                          >
+                            <option value="" disabled>More Disease Classes (10)...</option>
+                            {samplesList.map(s => (
+                              <option key={s.id} value={s.id}>{s.label}</option>
+                            ))}
+                          </select>
+                        </div>
+                      </div>
+
                       <div className="grid grid-cols-2 gap-4">
                         {/* Viewfinder Preview */}
                         <div className="bg-slate-900 border-2 border-dashed border-slate-700 rounded-xl p-4 flex flex-col items-center justify-center min-h-[260px] text-center relative overflow-hidden">
                           {previewUrl ? (
-                            <img src={previewUrl} alt="Leaf preview" className="max-h-56 object-contain rounded-lg shadow-md" />
+                            <div className="space-y-2 flex flex-col items-center">
+                              <img src={previewUrl} alt="Leaf preview" className="max-h-52 object-contain rounded-lg shadow-md" />
+                              {selectedSampleId && (
+                                <span className="text-[11px] font-mono text-emerald-400 bg-emerald-950/80 border border-emerald-800 px-2.5 py-0.5 rounded">
+                                  Sample Selected: {samplesList.find(s => s.id === selectedSampleId)?.label}
+                                </span>
+                              )}
+                            </div>
                           ) : (
                             <div className="space-y-2 text-slate-400">
                               <Camera className="w-12 h-12 mx-auto text-slate-500" />
                               <div className="font-bold text-sm">Offline Hardware Viewfinder</div>
-                              <p className="text-xs text-slate-500 max-w-xs">Take a photo using edge camera or upload a file.</p>
+                              <p className="text-xs text-slate-500 max-w-xs">Select a verified sample leaf above, upload a file, or capture from camera.</p>
                             </div>
                           )}
                         </div>
@@ -779,16 +893,16 @@ export default function App() {
                           <button
                             onClick={async () => {
                               const res = await executeScan(true);
-                              if (res) setWizardStep(3);
+                              if (res && res.image_quality.passed) setWizardStep(3);
                             }}
-                            disabled={isScanning}
-                            className="w-full bg-emerald-600 hover:bg-emerald-500 disabled:bg-slate-700 text-white py-4 rounded-xl text-sm font-bold flex items-center justify-center space-x-2 shadow-lg"
+                            disabled={isScanning || isLoadingSample}
+                            className="w-full bg-emerald-600 hover:bg-emerald-500 disabled:bg-slate-700 text-white py-3.5 rounded-xl text-sm font-bold flex items-center justify-center space-x-2 shadow-lg"
                           >
                             {isScanning ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Camera className="w-5 h-5" />}
                             <span>Capture from Hardware Camera</span>
                           </button>
 
-                          <label className="w-full cursor-pointer bg-slate-800 hover:bg-slate-700 text-slate-200 py-3.5 rounded-xl text-xs font-bold flex items-center justify-center space-x-2 border border-slate-700">
+                          <label className="w-full cursor-pointer bg-slate-800 hover:bg-slate-700 text-slate-200 py-3 rounded-xl text-xs font-bold flex items-center justify-center space-x-2 border border-slate-700">
                             <Upload className="w-4 h-4" />
                             <span>{t('btn_upload')}</span>
                             <input type="file" accept="image/*" className="hidden" onChange={handleFileSelect} />
@@ -800,18 +914,22 @@ export default function App() {
                                 const res = await executeScan(false);
                                 if (res) setWizardStep(3);
                               }}
-                              disabled={isScanning}
-                              className="w-full bg-cyan-600 hover:bg-cyan-500 text-white py-3 rounded-xl text-xs font-bold flex items-center justify-center space-x-1.5"
+                              disabled={isScanning || isLoadingSample}
+                              className="w-full bg-cyan-600 hover:bg-cyan-500 text-white py-3 rounded-xl text-xs font-bold flex items-center justify-center space-x-1.5 shadow-lg ring-1 ring-cyan-400"
                             >
-                              <span>Analyze Selected Upload</span>
+                              <span>Analyze Selected Leaf (YOLO11n)</span>
                               <ArrowRight className="w-4 h-4" />
                             </button>
                           )}
 
                           {scanError && (
-                            <div className="bg-rose-950/80 border border-rose-800 text-rose-300 p-2.5 rounded-lg text-xs flex items-center space-x-2">
-                              <AlertTriangle className="w-4 h-4 flex-shrink-0" />
-                              <span>{scanError}</span>
+                            <div className="bg-rose-950/80 border border-rose-800 text-rose-300 p-2.5 rounded-lg text-xs flex items-start space-x-2">
+                              <AlertTriangle className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                              <div>
+                                <div className="font-bold">Hardware Notice</div>
+                                <div>{scanError}</div>
+                                <div className="text-slate-400 mt-1">If no physical camera is plugged in, click any sample leaf above to test real YOLO11n inference.</div>
+                              </div>
                             </div>
                           )}
                         </div>
@@ -1260,7 +1378,7 @@ export default function App() {
 
                       <button
                         onClick={() => executeScan(true)}
-                        disabled={isScanning || isPredictingDisease}
+                        disabled={isScanning || isPredictingDisease || isLoadingSample}
                         className="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-1.5 rounded-lg text-xs font-bold flex items-center space-x-1.5"
                       >
                         {isScanning ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Camera className="w-3.5 h-3.5" />}
@@ -1270,13 +1388,58 @@ export default function App() {
                       {selectedFile && (
                         <button
                           onClick={() => handlePredictDisease()}
-                          disabled={isPredictingDisease}
+                          disabled={isPredictingDisease || isLoadingSample}
                           className="bg-cyan-600 hover:bg-cyan-500 text-white px-3.5 py-1.5 rounded-lg text-xs font-bold flex items-center space-x-1.5 shadow-md"
                         >
                           {isPredictingDisease ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Zap className="w-3.5 h-3.5" />}
                           <span>Classify (YOLO11n)</span>
                         </button>
                       )}
+                    </div>
+                  </div>
+
+                  {/* One-Touch Sample Leaf Classifier Bar */}
+                  <div className="bg-slate-900/90 border border-slate-700/80 rounded-xl p-3.5 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <div className="text-xs font-bold text-slate-200 flex items-center space-x-1.5">
+                        <Zap className="w-4 h-4 text-amber-400 shrink-0" />
+                        <span>One-Touch Sample Image Classification (Held-Out Test Set):</span>
+                      </div>
+                      <span className="text-[10px] font-mono text-cyan-300 bg-cyan-950/80 border border-cyan-800/60 px-2 py-0.5 rounded">
+                        Offline YOLO11n ONNX
+                      </span>
+                    </div>
+
+                    <div className="flex flex-wrap items-center gap-2">
+                      {samplesList.slice(0, 5).map(s => (
+                        <button
+                          key={s.id}
+                          type="button"
+                          onClick={() => handleSelectSample(s, true)}
+                          disabled={isLoadingSample || isPredictingDisease}
+                          className={`px-3 py-1.5 rounded-lg text-xs font-bold transition border flex items-center space-x-1.5 ${
+                            selectedSampleId === s.id
+                              ? 'bg-emerald-600 text-white border-emerald-400 shadow-md ring-1 ring-emerald-400'
+                              : 'bg-slate-800 text-slate-200 border-slate-700 hover:bg-slate-700 hover:text-white'
+                          }`}
+                        >
+                          <span>{s.label}</span>
+                        </button>
+                      ))}
+
+                      <select
+                        value={selectedSampleId || ''}
+                        onChange={(e) => {
+                          const found = samplesList.find(x => x.id === e.target.value);
+                          if (found) handleSelectSample(found, true);
+                        }}
+                        className="bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-slate-300 font-medium ml-auto"
+                      >
+                        <option value="" disabled>More Disease Classes (10)...</option>
+                        {samplesList.map(s => (
+                          <option key={s.id} value={s.id}>{s.label}</option>
+                        ))}
+                      </select>
                     </div>
                   </div>
 
@@ -1442,49 +1605,61 @@ export default function App() {
                     <div className="bg-slate-800/80 border border-slate-700 rounded-xl p-4">
                       <div className="text-xs text-slate-400 font-semibold">{t('soil_n')}</div>
                       <div className="text-3xl font-extrabold text-cyan-400 mt-2 font-mono">
-                        {liveSoilReading?.nitrogen !== null && liveSoilReading?.nitrogen !== undefined ? `${liveSoilReading.nitrogen} mg/kg` : (deviceStatus?.demo_mode ? '42 mg/kg' : '--')}
+                        {liveSoilReading?.nitrogen !== null && liveSoilReading?.nitrogen !== undefined ? `${liveSoilReading.nitrogen} mg/kg` : '--'}
                       </div>
-                      <div className="text-[11px] text-slate-400 mt-1">{deviceStatus?.demo_mode ? 'Simulated' : (liveSoilReading?.nitrogen !== null ? 'Live Probe' : 'Unavailable')}</div>
+                      <div className="text-[11px] text-slate-400 mt-1">
+                        {liveSoilReading?.nitrogen !== null && liveSoilReading?.nitrogen !== undefined ? (deviceStatus?.demo_mode ? 'Simulated' : 'Live RS485') : 'Click "Take Live Soil Reading"'}
+                      </div>
                     </div>
 
                     <div className="bg-slate-800/80 border border-slate-700 rounded-xl p-4">
                       <div className="text-xs text-slate-400 font-semibold">{t('soil_p')}</div>
                       <div className="text-3xl font-extrabold text-cyan-400 mt-2 font-mono">
-                        {liveSoilReading?.phosphorus !== null && liveSoilReading?.phosphorus !== undefined ? `${liveSoilReading.phosphorus} mg/kg` : (deviceStatus?.demo_mode ? '18 mg/kg' : '--')}
+                        {liveSoilReading?.phosphorus !== null && liveSoilReading?.phosphorus !== undefined ? `${liveSoilReading.phosphorus} mg/kg` : '--'}
                       </div>
-                      <div className="text-[11px] text-slate-400 mt-1">{deviceStatus?.demo_mode ? 'Simulated' : (liveSoilReading?.phosphorus !== null ? 'Live Probe' : 'Unavailable')}</div>
+                      <div className="text-[11px] text-slate-400 mt-1">
+                        {liveSoilReading?.phosphorus !== null && liveSoilReading?.phosphorus !== undefined ? (deviceStatus?.demo_mode ? 'Simulated' : 'Live RS485') : 'Click "Take Live Soil Reading"'}
+                      </div>
                     </div>
 
                     <div className="bg-slate-800/80 border border-slate-700 rounded-xl p-4">
                       <div className="text-xs text-slate-400 font-semibold">{t('soil_k')}</div>
                       <div className="text-3xl font-extrabold text-cyan-400 mt-2 font-mono">
-                        {liveSoilReading?.potassium !== null && liveSoilReading?.potassium !== undefined ? `${liveSoilReading.potassium} mg/kg` : (deviceStatus?.demo_mode ? '156 mg/kg' : '--')}
+                        {liveSoilReading?.potassium !== null && liveSoilReading?.potassium !== undefined ? `${liveSoilReading.potassium} mg/kg` : '--'}
                       </div>
-                      <div className="text-[11px] text-slate-400 mt-1">{deviceStatus?.demo_mode ? 'Simulated' : (liveSoilReading?.potassium !== null ? 'Live Probe' : 'Unavailable')}</div>
+                      <div className="text-[11px] text-slate-400 mt-1">
+                        {liveSoilReading?.potassium !== null && liveSoilReading?.potassium !== undefined ? (deviceStatus?.demo_mode ? 'Simulated' : 'Live RS485') : 'Click "Take Live Soil Reading"'}
+                      </div>
                     </div>
 
                     <div className="bg-slate-800/80 border border-slate-700 rounded-xl p-4">
                       <div className="text-xs text-slate-400 font-semibold">{t('soil_ph')}</div>
                       <div className="text-3xl font-extrabold text-cyan-400 mt-2 font-mono">
-                        {liveSoilReading?.ph !== null && liveSoilReading?.ph !== undefined ? `${liveSoilReading.ph} pH` : (deviceStatus?.demo_mode ? '6.8 pH' : '--')}
+                        {liveSoilReading?.ph !== null && liveSoilReading?.ph !== undefined ? `${liveSoilReading.ph} pH` : '--'}
                       </div>
-                      <div className="text-[11px] text-slate-400 mt-1">{deviceStatus?.demo_mode ? 'Simulated' : (liveSoilReading?.ph !== null ? 'Live Probe' : 'Unavailable')}</div>
+                      <div className="text-[11px] text-slate-400 mt-1">
+                        {liveSoilReading?.ph !== null && liveSoilReading?.ph !== undefined ? (deviceStatus?.demo_mode ? 'Simulated' : 'Live RS485') : 'Click "Take Live Soil Reading"'}
+                      </div>
                     </div>
 
                     <div className="bg-slate-800/80 border border-slate-700 rounded-xl p-4">
                       <div className="text-xs text-slate-400 font-semibold">{t('soil_moisture')}</div>
                       <div className="text-3xl font-extrabold text-cyan-400 mt-2 font-mono">
-                        {liveSoilReading?.moisture !== null && liveSoilReading?.moisture !== undefined ? `${liveSoilReading.moisture}%` : (deviceStatus?.demo_mode ? '24.2%' : '--')}
+                        {liveSoilReading?.moisture !== null && liveSoilReading?.moisture !== undefined ? `${liveSoilReading.moisture}%` : '--'}
                       </div>
-                      <div className="text-[11px] text-slate-400 mt-1">{deviceStatus?.demo_mode ? 'Simulated' : (liveSoilReading?.moisture !== null ? 'Live Probe' : 'Unavailable')}</div>
+                      <div className="text-[11px] text-slate-400 mt-1">
+                        {liveSoilReading?.moisture !== null && liveSoilReading?.moisture !== undefined ? (deviceStatus?.demo_mode ? 'Simulated' : 'Live RS485') : 'Click "Take Live Soil Reading"'}
+                      </div>
                     </div>
 
                     <div className="bg-slate-800/80 border border-slate-700 rounded-xl p-4">
                       <div className="text-xs text-slate-400 font-semibold">{t('soil_temp')}</div>
                       <div className="text-3xl font-extrabold text-cyan-400 mt-2 font-mono">
-                        {liveSoilReading?.temperature !== null && liveSoilReading?.temperature !== undefined ? `${liveSoilReading.temperature}°C` : (deviceStatus?.demo_mode ? '26.4°C' : '--')}
+                        {liveSoilReading?.temperature !== null && liveSoilReading?.temperature !== undefined ? `${liveSoilReading.temperature}°C` : '--'}
                       </div>
-                      <div className="text-[11px] text-slate-400 mt-1">{deviceStatus?.demo_mode ? 'Simulated' : (liveSoilReading?.temperature !== null ? 'Live Probe' : 'Unavailable')}</div>
+                      <div className="text-[11px] text-slate-400 mt-1">
+                        {liveSoilReading?.temperature !== null && liveSoilReading?.temperature !== undefined ? (deviceStatus?.demo_mode ? 'Simulated' : 'Live RS485') : 'Click "Take Live Soil Reading"'}
+                      </div>
                     </div>
                   </div>
                 </div>

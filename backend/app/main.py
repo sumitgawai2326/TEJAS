@@ -27,12 +27,12 @@ async def lifespan(app: FastAPI):
     
     yield
     # Shutdown Lifespan
-    log_event("SYSTEM", "INFO", "Shutting down KrishiDrishti Edge gracefully...")
+    log_event("SYSTEM", "INFO", "Shutting down TEJAS gracefully...")
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
     version=settings.VERSION,
-    description="Portable Offline AI-Powered Farming Assistant for Smart India Hackathon (SIH)",
+    description="Technology Enabled Judicious Agriculture And soil sensor - Smart India Hackathon (SIH) Prototype",
     lifespan=lifespan
 )
 
