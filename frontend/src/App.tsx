@@ -375,38 +375,38 @@ export default function App() {
   const selectedField = fields.find(f => f.id === selectedFieldId);
 
   return (
-    <div className="flex flex-col h-screen w-screen overflow-hidden bg-slate-950 text-slate-100 font-sans select-none">
+    <div className="flex flex-col h-screen w-screen overflow-hidden bg-[#0a1f14] text-slate-100 font-sans select-none">
       {/* ------------------------------------------------------------- */}
       {/* TOP EMBEDDED RUGGED HARDWARE STATUS BAR                       */}
       {/* ------------------------------------------------------------- */}
-      <header className="bg-slate-900 border-b border-slate-800 px-4 py-3 flex items-center justify-between text-sm shrink-0">
+      <header className="bg-[#0a1f14] border-b border-[#18452e] px-4 py-3 flex items-center justify-between text-sm shrink-0 shadow-sm">
         <div className="flex items-center space-x-3">
-          <div className="flex items-center space-x-2 bg-emerald-950 text-emerald-400 border border-emerald-800/80 px-3 py-1.5 rounded-lg font-bold tracking-wide text-xs">
+          <div className="flex items-center space-x-2 bg-emerald-950 text-emerald-300 border border-emerald-700/70 px-3.5 py-1.5 rounded-xl font-black tracking-wider text-xs shadow-inner">
             <Sprout className="w-4 h-4 text-emerald-400 shrink-0" />
             <span>{t('app_name')}</span>
           </div>
 
           {/* Explicit DEMO vs REAL Badge */}
           {deviceStatus?.demo_mode ? (
-            <div className="flex items-center space-x-1.5 bg-amber-500/20 text-amber-300 border border-amber-500/50 px-3 py-1 rounded-md text-xs font-bold tracking-wider animate-pulse">
-              <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0" />
+            <div className="flex items-center space-x-1.5 bg-amber-500/20 text-amber-300 border border-amber-500/50 px-3 py-1 rounded-lg text-xs font-bold tracking-wider animate-pulse">
+              <AlertTriangle className="w-3.5 h-3.5 text-amber-400 shrink-0" />
               <span>{t('demo_badge')}</span>
             </div>
           ) : (
-            <div className="flex items-center space-x-1.5 bg-emerald-950 text-emerald-300 border border-emerald-700 px-3 py-1 rounded-md text-xs font-bold tracking-wider">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+            <div className="flex items-center space-x-1.5 bg-emerald-500/20 text-emerald-300 border border-emerald-500/50 px-3 py-1 rounded-lg text-xs font-bold tracking-wider">
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
               <span>{t('real_badge')}</span>
             </div>
           )}
 
           {/* Offline/Edge indicator */}
-          <div className="flex items-center space-x-1.5 bg-cyan-950/80 text-cyan-300 border border-cyan-800/60 px-2.5 py-1 rounded-md text-xs font-semibold">
-            <WifiOff className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+          <div className="flex items-center space-x-1.5 bg-teal-950/80 text-teal-300 border border-teal-800/60 px-2.5 py-1 rounded-lg text-xs font-semibold">
+            <WifiOff className="w-3.5 h-3.5 text-teal-400 shrink-0" />
             <span>{t('status_offline')}</span>
           </div>
 
           {hasError && (
-            <div className="text-xs text-rose-300 bg-rose-950 border border-rose-800 px-2.5 py-1 rounded font-bold">
+            <div className="text-xs text-rose-300 bg-rose-950 border border-rose-800 px-2.5 py-1 rounded-lg font-bold">
               Backend Offline
             </div>
           )}
@@ -415,13 +415,13 @@ export default function App() {
         {/* Right Hardware Telemetry Indicators */}
         <div className="flex items-center space-x-3">
           {/* AI Accelerator Indicator */}
-          <div className="hidden sm:flex items-center space-x-1.5 text-xs text-slate-300 bg-slate-800 px-3 py-1 rounded-lg border border-slate-700">
+          <div className="hidden sm:flex items-center space-x-1.5 text-xs text-slate-300 bg-[#0f2d21] px-3 py-1 rounded-lg border border-[#1b4d3a]">
             <Cpu className="w-4 h-4 text-purple-400 shrink-0" />
             <span className="font-mono">AI: <b className="text-purple-300">{deviceStatus?.ai_status_label || 'CPU'}</b></span>
           </div>
 
           {/* Battery Status */}
-          <div className="flex items-center space-x-1.5 text-xs text-slate-300 bg-slate-800 px-3 py-1 rounded-lg border border-slate-700">
+          <div className="flex items-center space-x-1.5 text-xs text-slate-300 bg-[#0f2d21] px-3 py-1 rounded-lg border border-[#1b4d3a]">
             {deviceStatus?.battery?.power_plugged ? (
               <BatteryCharging className="w-4 h-4 text-emerald-400 shrink-0" />
             ) : (
@@ -431,22 +431,22 @@ export default function App() {
           </div>
 
           {/* One-Touch Multilingual Selector */}
-          <div className="flex items-center bg-slate-800 rounded-lg border border-slate-700 p-1 text-xs font-bold space-x-1">
+          <div className="flex items-center bg-[#0f2d21] rounded-lg border border-[#1b4d3a] p-1 text-xs font-bold space-x-1">
             <button
               onClick={() => setLang('en')}
-              className={`px-2.5 py-1 rounded transition ${lang === 'en' ? 'bg-emerald-600 text-white shadow' : 'text-slate-400 hover:text-white'}`}
+              className={`px-2.5 py-1 rounded transition ${lang === 'en' ? 'bg-emerald-600 text-white shadow' : 'text-emerald-200/70 hover:text-white'}`}
             >
               EN
             </button>
             <button
               onClick={() => setLang('hi')}
-              className={`px-2.5 py-1 rounded transition ${lang === 'hi' ? 'bg-emerald-600 text-white shadow' : 'text-slate-400 hover:text-white'}`}
+              className={`px-2.5 py-1 rounded transition ${lang === 'hi' ? 'bg-emerald-600 text-white shadow' : 'text-emerald-200/70 hover:text-white'}`}
             >
               हिंदी
             </button>
             <button
               onClick={() => setLang('mr')}
-              className={`px-2.5 py-1 rounded transition ${lang === 'mr' ? 'bg-emerald-600 text-white shadow' : 'text-slate-400 hover:text-white'}`}
+              className={`px-2.5 py-1 rounded transition ${lang === 'mr' ? 'bg-emerald-600 text-white shadow' : 'text-emerald-200/70 hover:text-white'}`}
             >
               मराठी
             </button>
@@ -457,15 +457,15 @@ export default function App() {
       {/* ------------------------------------------------------------- */}
       {/* MAIN TOUCH WORKSPACE & NAVIGATION                             */}
       {/* ------------------------------------------------------------- */}
-      <main className="flex-1 flex overflow-hidden p-3 gap-3">
+      <main className="flex-1 flex overflow-hidden p-3 gap-3 bg-[#0a1f14]">
         {/* Rugged Touch Left Navigation Bar */}
-        <nav className="w-52 bg-slate-900 border border-slate-800 rounded-2xl p-2.5 flex flex-col justify-between shrink-0 select-none shadow-xl">
+        <nav className="w-52 bg-[#0f2d21] border border-[#1a4733] rounded-2xl p-2.5 flex flex-col justify-between shrink-0 select-none shadow-2xl">
           <div className="space-y-1.5">
             {/* 1. Home Dashboard */}
             <button
               onClick={() => setActiveTab('home')}
               className={`w-full flex items-center space-x-3 px-3.5 py-3 rounded-xl text-sm font-bold transition ${
-                activeTab === 'home' ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-900/40' : 'text-slate-300 hover:bg-slate-800'
+                activeTab === 'home' ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-950/50' : 'text-emerald-100/80 hover:bg-[#153e2e] hover:text-white'
               }`}
             >
               <Activity className="w-5 h-5 shrink-0" />
@@ -479,10 +479,10 @@ export default function App() {
                 setWizardStep(1);
               }}
               className={`w-full flex items-center space-x-3 px-3.5 py-3 rounded-xl text-sm font-bold transition ${
-                activeTab === 'wizard' ? 'bg-cyan-600 text-white shadow-lg shadow-cyan-900/40' : 'text-cyan-300 bg-cyan-950/40 border border-cyan-800/40 hover:bg-cyan-900/50'
+                activeTab === 'wizard' ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-950/60 ring-1 ring-emerald-400' : 'text-emerald-200 bg-emerald-950/60 border border-emerald-700/50 hover:bg-emerald-900/60 hover:text-white'
               }`}
             >
-              <PlayCircle className="w-5 h-5 shrink-0 text-cyan-400" />
+              <PlayCircle className="w-5 h-5 shrink-0 text-emerald-300" />
               <span>{t('nav_wizard')}</span>
             </button>
 
@@ -490,7 +490,7 @@ export default function App() {
             <button
               onClick={() => setActiveTab('fields')}
               className={`w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition ${
-                activeTab === 'fields' ? 'bg-emerald-600 text-white' : 'text-slate-300 hover:bg-slate-800'
+                activeTab === 'fields' ? 'bg-emerald-600 text-white shadow-md' : 'text-emerald-100/80 hover:bg-[#153e2e] hover:text-white'
               }`}
             >
               <Layers className="w-5 h-5 shrink-0" />
@@ -501,7 +501,7 @@ export default function App() {
             <button
               onClick={() => setActiveTab('scanner')}
               className={`w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition ${
-                activeTab === 'scanner' ? 'bg-emerald-600 text-white' : 'text-slate-300 hover:bg-slate-800'
+                activeTab === 'scanner' ? 'bg-emerald-600 text-white shadow-md' : 'text-emerald-100/80 hover:bg-[#153e2e] hover:text-white'
               }`}
             >
               <Camera className="w-5 h-5 shrink-0" />
@@ -512,7 +512,7 @@ export default function App() {
             <button
               onClick={() => setActiveTab('soil')}
               className={`w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition ${
-                activeTab === 'soil' ? 'bg-emerald-600 text-white' : 'text-slate-300 hover:bg-slate-800'
+                activeTab === 'soil' ? 'bg-emerald-600 text-white shadow-md' : 'text-emerald-100/80 hover:bg-[#153e2e] hover:text-white'
               }`}
             >
               <Droplets className="w-5 h-5 shrink-0" />
@@ -523,7 +523,7 @@ export default function App() {
             <button
               onClick={() => setActiveTab('risk')}
               className={`w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition ${
-                activeTab === 'risk' ? 'bg-emerald-600 text-white' : 'text-slate-300 hover:bg-slate-800'
+                activeTab === 'risk' ? 'bg-emerald-600 text-white shadow-md' : 'text-emerald-100/80 hover:bg-[#153e2e] hover:text-white'
               }`}
             >
               <ShieldAlert className="w-5 h-5 shrink-0" />
@@ -534,7 +534,7 @@ export default function App() {
             <button
               onClick={() => setActiveTab('advisory')}
               className={`w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition ${
-                activeTab === 'advisory' ? 'bg-emerald-600 text-white' : 'text-slate-300 hover:bg-slate-800'
+                activeTab === 'advisory' ? 'bg-emerald-600 text-white shadow-md' : 'text-emerald-100/80 hover:bg-[#153e2e] hover:text-white'
               }`}
             >
               <FileText className="w-5 h-5 shrink-0" />
@@ -545,7 +545,7 @@ export default function App() {
             <button
               onClick={() => setActiveTab('history')}
               className={`w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition ${
-                activeTab === 'history' ? 'bg-emerald-600 text-white' : 'text-slate-300 hover:bg-slate-800'
+                activeTab === 'history' ? 'bg-emerald-600 text-white shadow-md' : 'text-emerald-100/80 hover:bg-[#153e2e] hover:text-white'
               }`}
             >
               <HistoryIcon className="w-5 h-5 shrink-0" />
@@ -554,11 +554,11 @@ export default function App() {
           </div>
 
           {/* Bottom Settings & Diagnostics */}
-          <div className="space-y-1.5 pt-2 border-t border-slate-800">
+          <div className="space-y-1.5 pt-2 border-t border-[#1a4733]">
             <button
               onClick={() => setActiveTab('diagnostics')}
               className={`w-full flex items-center space-x-3 px-3.5 py-2 rounded-xl text-xs font-bold transition ${
-                activeTab === 'diagnostics' ? 'bg-emerald-600 text-white' : 'text-slate-400 hover:bg-slate-800 hover:text-white'
+                activeTab === 'diagnostics' ? 'bg-emerald-600 text-white shadow' : 'text-emerald-200/70 hover:bg-[#153e2e] hover:text-white'
               }`}
             >
               <CheckCircle2 className="w-4 h-4 shrink-0" />
@@ -568,7 +568,7 @@ export default function App() {
             <button
               onClick={() => setActiveTab('settings')}
               className={`w-full flex items-center space-x-3 px-3.5 py-2 rounded-xl text-xs font-bold transition ${
-                activeTab === 'settings' ? 'bg-emerald-600 text-white' : 'text-slate-400 hover:bg-slate-800 hover:text-white'
+                activeTab === 'settings' ? 'bg-emerald-600 text-white shadow' : 'text-emerald-200/70 hover:bg-[#153e2e] hover:text-white'
               }`}
             >
               <SettingsIcon className="w-4 h-4 shrink-0" />
@@ -578,26 +578,26 @@ export default function App() {
         </nav>
 
         {/* ------------------------------------------------------------- */}
-        {/* MAIN TOUCH CONTENT VIEWPORT                                   */}
+        {/* MAIN TOUCH CONTENT VIEWPORT (LIGHT MODERN THEME)             */}
         {/* ------------------------------------------------------------- */}
-        <section className="flex-1 bg-slate-900/80 border border-slate-800 rounded-2xl p-5 overflow-y-auto flex flex-col justify-between shadow-2xl">
+        <section className="flex-1 bg-[#f6f8f6] text-slate-800 border border-slate-200/90 rounded-2xl p-5 overflow-y-auto flex flex-col justify-between shadow-2xl">
           <div>
             {/* Header Title & Host Telemetry */}
-            <div className="flex items-center justify-between pb-3.5 border-b border-slate-800">
+            <div className="flex items-center justify-between pb-3.5 border-b border-slate-200">
               <div>
-                <h1 className="text-2xl font-black text-slate-100 flex items-center space-x-2 tracking-wide">
+                <h1 className="text-2xl font-black text-slate-900 flex items-center space-x-2 tracking-tight">
                   <span>{t(`nav_${activeTab}`)}</span>
                 </h1>
-                <p className="text-xs text-slate-400 mt-0.5">{t('tagline')}</p>
+                <p className="text-xs text-slate-500 font-medium mt-0.5">{t('tagline')}</p>
               </div>
 
               {/* Live Host Telemetry Pill */}
               {deviceStatus && (
-                <div className="flex items-center space-x-3 text-xs font-mono bg-slate-800/90 px-3.5 py-1.5 rounded-xl border border-slate-700">
-                  <span className="text-slate-400">CPU: <b className="text-slate-200">{deviceStatus.cpu_usage_percent}%</b></span>
-                  <span className="text-slate-400">RAM: <b className="text-slate-200">{deviceStatus.ram_usage_percent}%</b></span>
+                <div className="flex items-center space-x-3 text-xs font-mono bg-white px-3.5 py-1.5 rounded-xl border border-slate-200 shadow-sm">
+                  <span className="text-slate-600">CPU: <b className="text-slate-900">{deviceStatus.cpu_usage_percent}%</b></span>
+                  <span className="text-slate-600">RAM: <b className="text-slate-900">{deviceStatus.ram_usage_percent}%</b></span>
                   {deviceStatus.cpu_temperature_celsius !== null && (
-                    <span className="text-slate-400">TEMP: <b className="text-amber-400">{deviceStatus.cpu_temperature_celsius}°C</b></span>
+                    <span className="text-slate-600">TEMP: <b className="text-amber-600 font-bold">{deviceStatus.cpu_temperature_celsius}°C</b></span>
                   )}
                 </div>
               )}
@@ -611,11 +611,11 @@ export default function App() {
               {activeTab === 'home' && (
                 <div className="space-y-5">
                   {/* GIANT PRIMARY TOUCH ACTION: START FIELD CHECK */}
-                  <div className="bg-gradient-to-r from-emerald-900/60 via-slate-900 to-slate-900 border-2 border-emerald-600/70 rounded-2xl p-6 shadow-2xl flex items-center justify-between">
-                    <div className="space-y-1">
-                      <div className="text-xs font-mono font-bold text-emerald-400 tracking-wider">GUIDED EDGE WORKFLOW</div>
-                      <div className="text-2xl font-black text-slate-100">Ready for Field Diagnosis</div>
-                      <p className="text-xs text-slate-400 max-w-lg">
+                  <div className="bg-gradient-to-r from-emerald-800 via-emerald-700 to-teal-800 border border-emerald-600/40 rounded-2xl p-6 shadow-lg flex items-center justify-between text-white">
+                    <div className="space-y-1.5">
+                      <div className="text-xs font-mono font-bold text-emerald-200 tracking-wider uppercase">GUIDED EDGE WORKFLOW</div>
+                      <div className="text-2xl font-black text-white">Ready for Field Diagnosis</div>
+                      <p className="text-xs text-emerald-100/90 max-w-lg leading-relaxed">
                         Execute step-by-step leaf pathology scanning, 6-parameter soil telemetry, multi-modal risk scoring, and actionable advisory.
                       </p>
                     </div>
@@ -625,69 +625,69 @@ export default function App() {
                         setActiveTab('wizard');
                         setWizardStep(1);
                       }}
-                      className="bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-4 rounded-xl text-base font-black tracking-wide flex items-center space-x-3 shadow-xl shadow-emerald-950 transition active:scale-95"
+                      className="bg-white hover:bg-emerald-50 text-emerald-900 px-6 py-4 rounded-xl text-base font-black tracking-wide flex items-center space-x-3 shadow-xl transition active:scale-95 shrink-0"
                     >
                       <span>{t('btn_start_check')}</span>
-                      <ArrowRight className="w-5 h-5" />
+                      <ArrowRight className="w-5 h-5 text-emerald-800" />
                     </button>
                   </div>
 
                   {/* Hardware Readiness Matrix (Truthful!) */}
                   <div>
-                    <div className="text-xs font-bold text-slate-400 tracking-wider mb-2.5">LIVE HARDWARE DIAGNOSTIC MATRIX</div>
+                    <div className="text-xs font-bold text-slate-500 tracking-wider mb-2.5 uppercase">LIVE HARDWARE DIAGNOSTIC MATRIX</div>
                     <div className="grid grid-cols-4 gap-3.5">
                       {/* Subsystem 1: Camera */}
-                      <div className="bg-slate-800/80 border border-slate-700 rounded-xl p-4 space-y-1.5">
-                        <div className="flex justify-between items-center text-xs text-slate-400">
+                      <div className="bg-white border border-slate-200 rounded-2xl p-4 space-y-1.5 shadow-sm hover:shadow transition">
+                        <div className="flex justify-between items-center text-xs font-bold text-slate-400 uppercase tracking-wider">
                           <span>CAMERA SUBSYSTEM</span>
                           <Camera className="w-4 h-4 text-slate-400" />
                         </div>
-                        <div className="text-lg font-bold text-slate-100">
+                        <div className="text-lg font-black text-slate-900">
                           {deviceStatus?.subsystems?.camera?.is_mock ? 'Mock (Demo)' : (deviceStatus?.subsystems?.camera?.status || 'Active')}
                         </div>
-                        <div className="text-[11px] text-emerald-400 font-mono">
+                        <div className="text-[11px] text-emerald-600 font-mono font-medium">
                           {deviceStatus?.camera_status_label === 'READY' || deviceStatus?.subsystems?.camera?.status === 'READY' ? '● Ready for scan' : '○ ' + (deviceStatus?.camera_status_label || 'Unavailable')}
                         </div>
                       </div>
 
                       {/* Subsystem 2: 6-Param Soil Module */}
-                      <div className="bg-slate-800/80 border border-slate-700 rounded-xl p-4 space-y-1.5">
-                        <div className="flex justify-between items-center text-xs text-slate-400">
+                      <div className="bg-white border border-slate-200 rounded-2xl p-4 space-y-1.5 shadow-sm hover:shadow transition">
+                        <div className="flex justify-between items-center text-xs font-bold text-slate-400 uppercase tracking-wider">
                           <span>6-PARAM SOIL SENSOR</span>
-                          <Droplets className="w-4 h-4 text-cyan-400" />
+                          <Droplets className="w-4 h-4 text-emerald-600" />
                         </div>
-                        <div className="text-lg font-bold text-slate-100">
+                        <div className="text-lg font-black text-slate-900">
                           {deviceStatus?.demo_mode ? 'Simulated 6-in-1' : (deviceStatus?.soil_status_label || 'DISCONNECTED')}
                         </div>
-                        <div className={`text-[11px] font-mono ${deviceStatus?.soil_status_label === 'CONNECTED' ? 'text-emerald-400' : (deviceStatus?.demo_mode ? 'text-amber-400' : 'text-rose-400')}`}>
+                        <div className={`text-[11px] font-mono font-medium ${deviceStatus?.soil_status_label === 'CONNECTED' ? 'text-emerald-600' : (deviceStatus?.demo_mode ? 'text-amber-600' : 'text-rose-600')}`}>
                           {deviceStatus?.demo_mode ? '● Demo simulation' : (deviceStatus?.soil_status_label === 'CONNECTED' ? '● RS485 Link OK' : '○ Sensor Disconnected')}
                         </div>
                       </div>
 
                       {/* Subsystem 3: AI Accelerator */}
-                      <div className="bg-slate-800/80 border border-slate-700 rounded-xl p-4 space-y-1.5">
-                        <div className="flex justify-between items-center text-xs text-slate-400">
+                      <div className="bg-white border border-slate-200 rounded-2xl p-4 space-y-1.5 shadow-sm hover:shadow transition">
+                        <div className="flex justify-between items-center text-xs font-bold text-slate-400 uppercase tracking-wider">
                           <span>AI ACCELERATOR</span>
-                          <Cpu className="w-4 h-4 text-purple-400" />
+                          <Cpu className="w-4 h-4 text-purple-600" />
                         </div>
-                        <div className="text-lg font-bold text-slate-100">
+                        <div className="text-lg font-black text-slate-900">
                           {visionStatus?.accelerator || 'CPU FALLBACK'}
                         </div>
-                        <div className="text-[11px] text-purple-300 font-mono">
+                        <div className="text-[11px] text-purple-600 font-mono font-medium">
                           {visionStatus?.ready ? '● Model Loaded' : '○ Missing weights'}
                         </div>
                       </div>
 
                       {/* Subsystem 4: SQLite Database */}
-                      <div className="bg-slate-800/80 border border-slate-700 rounded-xl p-4 space-y-1.5">
-                        <div className="flex justify-between items-center text-xs text-slate-400">
+                      <div className="bg-white border border-slate-200 rounded-2xl p-4 space-y-1.5 shadow-sm hover:shadow transition">
+                        <div className="flex justify-between items-center text-xs font-bold text-slate-400 uppercase tracking-wider">
                           <span>LOCAL SQLITE DB</span>
-                          <HistoryIcon className="w-4 h-4 text-emerald-400" />
+                          <HistoryIcon className="w-4 h-4 text-emerald-600" />
                         </div>
-                        <div className="text-lg font-bold text-slate-100">
+                        <div className="text-lg font-black text-slate-900">
                           Offline Storage
                         </div>
-                        <div className="text-[11px] text-emerald-400 font-mono">
+                        <div className="text-[11px] text-emerald-600 font-mono font-medium">
                           ● {fields.length} Fields registered
                         </div>
                       </div>
@@ -698,40 +698,40 @@ export default function App() {
                   <div className="grid grid-cols-3 gap-4 pt-2">
                     <div 
                       onClick={() => setActiveTab('fields')}
-                      className="bg-slate-800/50 hover:bg-slate-800 border border-slate-700 rounded-xl p-4 cursor-pointer transition flex items-center space-x-3.5"
+                      className="bg-white hover:bg-slate-50 border border-slate-200 rounded-2xl p-4 cursor-pointer transition shadow-sm flex items-center space-x-3.5"
                     >
-                      <div className="w-10 h-10 rounded-xl bg-emerald-950 border border-emerald-800 flex items-center justify-center text-emerald-400">
+                      <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-700">
                         <Layers className="w-5 h-5" />
                       </div>
                       <div>
-                        <div className="font-bold text-sm text-slate-200">Manage Fields</div>
-                        <div className="text-xs text-slate-400">Select or add agricultural plots</div>
+                        <div className="font-bold text-sm text-slate-900">Manage Fields</div>
+                        <div className="text-xs text-slate-500">Select or add agricultural plots</div>
                       </div>
                     </div>
 
                     <div 
                       onClick={() => setActiveTab('soil')}
-                      className="bg-slate-800/50 hover:bg-slate-800 border border-slate-700 rounded-xl p-4 cursor-pointer transition flex items-center space-x-3.5"
+                      className="bg-white hover:bg-slate-50 border border-slate-200 rounded-2xl p-4 cursor-pointer transition shadow-sm flex items-center space-x-3.5"
                     >
-                      <div className="w-10 h-10 rounded-xl bg-cyan-950 border border-cyan-800 flex items-center justify-center text-cyan-400">
+                      <div className="w-10 h-10 rounded-xl bg-teal-50 border border-teal-200 flex items-center justify-center text-teal-700">
                         <Droplets className="w-5 h-5" />
                       </div>
                       <div>
-                        <div className="font-bold text-sm text-slate-200">6-Parameter Soil Probe</div>
-                        <div className="text-xs text-slate-400">Inspect live N/P/K/pH/Moisture</div>
+                        <div className="font-bold text-sm text-slate-900">6-Parameter Soil Probe</div>
+                        <div className="text-xs text-slate-500">Inspect live N/P/K/pH/Moisture</div>
                       </div>
                     </div>
 
                     <div 
                       onClick={() => setActiveTab('history')}
-                      className="bg-slate-800/50 hover:bg-slate-800 border border-slate-700 rounded-xl p-4 cursor-pointer transition flex items-center space-x-3.5"
+                      className="bg-white hover:bg-slate-50 border border-slate-200 rounded-2xl p-4 cursor-pointer transition shadow-sm flex items-center space-x-3.5"
                     >
-                      <div className="w-10 h-10 rounded-xl bg-purple-950 border border-purple-800 flex items-center justify-center text-purple-400">
+                      <div className="w-10 h-10 rounded-xl bg-purple-50 border border-purple-200 flex items-center justify-center text-purple-700">
                         <HistoryIcon className="w-5 h-5" />
                       </div>
                       <div>
-                        <div className="font-bold text-sm text-slate-200">Field History Timeline</div>
-                        <div className="text-xs text-slate-400">View chronological field records</div>
+                        <div className="font-bold text-sm text-slate-900">Field History Timeline</div>
+                        <div className="text-xs text-slate-500">View chronological field records</div>
                       </div>
                     </div>
                   </div>
@@ -744,15 +744,15 @@ export default function App() {
               {activeTab === 'wizard' && (
                 <div className="space-y-4">
                   {/* Progress Indicator Bar */}
-                  <div className="bg-slate-800/70 border border-slate-700 rounded-xl p-3.5 flex items-center justify-between">
+                  <div className="bg-white border border-slate-200 rounded-2xl p-3.5 shadow-sm flex items-center justify-between">
                     <div className="flex items-center space-x-2">
                       {[1, 2, 3, 4, 5, 6, 7].map(step => (
                         <div 
                           key={step} 
                           className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition ${
-                            wizardStep === step ? 'bg-cyan-500 text-slate-950 ring-2 ring-cyan-300' :
-                            wizardStep > step ? 'bg-emerald-600 text-white' :
-                            'bg-slate-800 text-slate-500 border border-slate-700'
+                            wizardStep === step ? 'bg-emerald-600 text-white ring-2 ring-emerald-300 ring-offset-1' :
+                            wizardStep > step ? 'bg-emerald-100 text-emerald-800 font-bold' :
+                            'bg-slate-100 text-slate-400 border border-slate-200'
                           }`}
                         >
                           {wizardStep > step ? <Check className="w-3.5 h-3.5" /> : step}
@@ -760,17 +760,17 @@ export default function App() {
                       ))}
                     </div>
 
-                    <div className="text-xs font-mono font-bold text-cyan-300">
+                    <div className="text-xs font-mono font-bold text-emerald-800 uppercase">
                       STEP {wizardStep} OF 7: {t(`step_${wizardStep}_title`)}
                     </div>
                   </div>
 
                   {/* WIZARD STEP 1: SELECT FIELD */}
                   {wizardStep === 1 && (
-                    <div className="bg-slate-800/60 border border-slate-700 rounded-2xl p-6 space-y-4">
+                    <div className="bg-white border border-slate-200 rounded-2xl p-6 space-y-4 shadow-sm">
                       <div className="space-y-1">
-                        <h2 className="text-xl font-bold text-slate-100">{t('step_1_title')}</h2>
-                        <p className="text-xs text-slate-400">{t('step_1_desc')}</p>
+                        <h2 className="text-xl font-bold text-slate-900">{t('step_1_title')}</h2>
+                        <p className="text-xs text-slate-500">{t('step_1_desc')}</p>
                       </div>
 
                       <div className="grid grid-cols-2 gap-3.5 max-h-72 overflow-y-auto pr-1">
@@ -779,24 +779,26 @@ export default function App() {
                             key={field.id}
                             onClick={() => setSelectedFieldId(field.id)}
                             className={`p-4 rounded-xl border-2 cursor-pointer transition flex justify-between items-center ${
-                              selectedFieldId === field.id ? 'bg-emerald-950/60 border-emerald-500 text-white shadow-lg' : 'bg-slate-800/40 border-slate-700 hover:bg-slate-800 text-slate-300'
+                              selectedFieldId === field.id 
+                                ? 'bg-emerald-50/80 border-emerald-600 text-emerald-950 shadow-sm' 
+                                : 'bg-slate-50 border-slate-200 hover:bg-slate-100 text-slate-800'
                             }`}
                           >
                             <div>
                               <div className="font-bold text-base">{field.name}</div>
-                              <div className="text-xs text-slate-400 mt-0.5">Soil: {field.soil_type || 'General'} &bull; Area: {field.area || 1.0} {field.area_unit}</div>
+                              <div className="text-xs text-slate-500 mt-0.5">Soil: {field.soil_type || 'General'} &bull; Area: {field.area || 1.0} {field.area_unit}</div>
                             </div>
                             {selectedFieldId === field.id && (
-                              <CheckCircle className="w-6 h-6 text-emerald-400 shrink-0" />
+                              <CheckCircle className="w-6 h-6 text-emerald-600 shrink-0" />
                             )}
                           </div>
                         ))}
                       </div>
 
-                      <div className="flex justify-between items-center pt-3 border-t border-slate-700">
+                      <div className="flex justify-between items-center pt-3 border-t border-slate-200">
                         <button
                           onClick={() => setShowAddFieldModal(true)}
-                          className="bg-slate-700 hover:bg-slate-600 text-slate-200 px-4 py-2 rounded-xl text-xs font-bold flex items-center space-x-1.5"
+                          className="bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-xl text-xs font-bold flex items-center space-x-1.5 border border-slate-300"
                         >
                           <PlusCircle className="w-4 h-4" />
                           <span>{t('btn_add_field')}</span>
@@ -805,7 +807,7 @@ export default function App() {
                         <button
                           disabled={!selectedFieldId}
                           onClick={() => setWizardStep(2)}
-                          className="bg-emerald-600 hover:bg-emerald-500 disabled:bg-slate-700 text-white px-6 py-2.5 rounded-xl text-sm font-bold flex items-center space-x-2"
+                          className="bg-emerald-600 hover:bg-emerald-500 disabled:bg-slate-300 disabled:text-slate-500 text-white px-6 py-2.5 rounded-xl text-sm font-bold flex items-center space-x-2 shadow"
                         >
                           <span>{t('btn_next')}</span>
                           <ArrowRight className="w-4 h-4" />
@@ -816,20 +818,20 @@ export default function App() {
 
                   {/* WIZARD STEP 2: CROP LEAF CAPTURE */}
                   {wizardStep === 2 && (
-                    <div className="bg-slate-800/60 border border-slate-700 rounded-2xl p-6 space-y-4">
+                    <div className="bg-white border border-slate-200 rounded-2xl p-6 space-y-4 shadow-sm">
                       <div className="space-y-1">
-                        <h2 className="text-xl font-bold text-slate-100">{t('step_2_title')}</h2>
-                        <p className="text-xs text-slate-400">{t('step_2_desc')}</p>
+                        <h2 className="text-xl font-bold text-slate-900">{t('step_2_title')}</h2>
+                        <p className="text-xs text-slate-500">{t('step_2_desc')}</p>
                       </div>
 
                       {/* Quick Demo Sample Leaf Selector */}
-                      <div className="bg-slate-900/90 border border-slate-700/80 rounded-xl p-3.5 space-y-2.5">
+                      <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 space-y-3">
                         <div className="flex items-center justify-between">
-                          <div className="text-xs font-bold text-slate-200 flex items-center space-x-1.5">
-                            <Zap className="w-4 h-4 text-amber-400 shrink-0" />
+                          <div className="text-xs font-bold text-slate-800 flex items-center space-x-1.5">
+                            <Zap className="w-4 h-4 text-amber-500 shrink-0" />
                             <span>Choose Sample Leaf (Verified Test Dataset):</span>
                           </div>
-                          <span className="text-[10px] font-mono text-cyan-300 bg-cyan-950/80 border border-cyan-800/60 px-2 py-0.5 rounded">
+                          <span className="text-[10px] font-mono font-bold text-emerald-800 bg-emerald-100 border border-emerald-300 px-2 py-0.5 rounded-md">
                             Real YOLO11n AI
                           </span>
                         </div>
@@ -843,8 +845,8 @@ export default function App() {
                               disabled={isLoadingSample || isScanning}
                               className={`px-3 py-1.5 rounded-lg text-xs font-bold transition border flex items-center space-x-1.5 ${
                                 selectedSampleId === s.id
-                                  ? 'bg-emerald-600 text-white border-emerald-400 shadow-md ring-1 ring-emerald-400'
-                                  : 'bg-slate-800 text-slate-200 border-slate-700 hover:bg-slate-700 hover:text-white'
+                                  ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm ring-2 ring-emerald-300'
+                                  : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'
                               }`}
                             >
                               <span>{s.label}</span>
@@ -857,7 +859,7 @@ export default function App() {
                               const found = samplesList.find(x => x.id === e.target.value);
                               if (found) handleSelectSample(found, false);
                             }}
-                            className="bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-slate-300 font-medium ml-auto"
+                            className="bg-white border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs text-slate-700 font-medium ml-auto"
                           >
                             <option value="" disabled>More Disease Classes (10)...</option>
                             {samplesList.map(s => (
@@ -869,12 +871,12 @@ export default function App() {
 
                       <div className="grid grid-cols-2 gap-4">
                         {/* Viewfinder Preview */}
-                        <div className="bg-slate-900 border-2 border-dashed border-slate-700 rounded-xl p-4 flex flex-col items-center justify-center min-h-[260px] text-center relative overflow-hidden">
+                        <div className="bg-slate-900 border-2 border-dashed border-slate-700 rounded-2xl p-4 flex flex-col items-center justify-center min-h-[260px] text-center relative overflow-hidden text-slate-100">
                           {previewUrl ? (
                             <div className="space-y-2 flex flex-col items-center">
                               <img src={previewUrl} alt="Leaf preview" className="max-h-52 object-contain rounded-lg shadow-md" />
                               {selectedSampleId && (
-                                <span className="text-[11px] font-mono text-emerald-400 bg-emerald-950/80 border border-emerald-800 px-2.5 py-0.5 rounded">
+                                <span className="text-[11px] font-mono text-emerald-300 bg-emerald-950/90 border border-emerald-700 px-2.5 py-0.5 rounded">
                                   Sample Selected: {samplesList.find(s => s.id === selectedSampleId)?.label}
                                 </span>
                               )}
@@ -882,7 +884,7 @@ export default function App() {
                           ) : (
                             <div className="space-y-2 text-slate-400">
                               <Camera className="w-12 h-12 mx-auto text-slate-500" />
-                              <div className="font-bold text-sm">Offline Hardware Viewfinder</div>
+                              <div className="font-bold text-sm text-slate-300">Offline Hardware Viewfinder</div>
                               <p className="text-xs text-slate-500 max-w-xs">Select a verified sample leaf above, upload a file, or capture from camera.</p>
                             </div>
                           )}
@@ -896,14 +898,14 @@ export default function App() {
                               if (res && res.image_quality.passed) setWizardStep(3);
                             }}
                             disabled={isScanning || isLoadingSample}
-                            className="w-full bg-emerald-600 hover:bg-emerald-500 disabled:bg-slate-700 text-white py-3.5 rounded-xl text-sm font-bold flex items-center justify-center space-x-2 shadow-lg"
+                            className="w-full bg-emerald-600 hover:bg-emerald-500 disabled:bg-slate-300 disabled:text-slate-500 text-white py-3.5 rounded-xl text-sm font-bold flex items-center justify-center space-x-2 shadow-md"
                           >
                             {isScanning ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Camera className="w-5 h-5" />}
                             <span>Capture from Hardware Camera</span>
                           </button>
 
-                          <label className="w-full cursor-pointer bg-slate-800 hover:bg-slate-700 text-slate-200 py-3 rounded-xl text-xs font-bold flex items-center justify-center space-x-2 border border-slate-700">
-                            <Upload className="w-4 h-4" />
+                          <label className="w-full cursor-pointer bg-slate-100 hover:bg-slate-200 text-slate-700 py-3 rounded-xl text-xs font-bold flex items-center justify-center space-x-2 border border-slate-300">
+                            <Upload className="w-4 h-4 text-slate-600" />
                             <span>{t('btn_upload')}</span>
                             <input type="file" accept="image/*" className="hidden" onChange={handleFileSelect} />
                           </label>
@@ -915,7 +917,7 @@ export default function App() {
                                 if (res) setWizardStep(3);
                               }}
                               disabled={isScanning || isLoadingSample}
-                              className="w-full bg-cyan-600 hover:bg-cyan-500 text-white py-3 rounded-xl text-xs font-bold flex items-center justify-center space-x-1.5 shadow-lg ring-1 ring-cyan-400"
+                              className="w-full bg-teal-600 hover:bg-teal-500 text-white py-3 rounded-xl text-xs font-bold flex items-center justify-center space-x-1.5 shadow-md"
                             >
                               <span>Analyze Selected Leaf (YOLO11n)</span>
                               <ArrowRight className="w-4 h-4" />
@@ -923,22 +925,22 @@ export default function App() {
                           )}
 
                           {scanError && (
-                            <div className="bg-rose-950/80 border border-rose-800 text-rose-300 p-2.5 rounded-lg text-xs flex items-start space-x-2">
-                              <AlertTriangle className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                            <div className="bg-rose-50 border border-rose-200 text-rose-800 p-3 rounded-xl text-xs flex items-start space-x-2">
+                              <AlertTriangle className="w-4 h-4 flex-shrink-0 mt-0.5 text-rose-600" />
                               <div>
-                                <div className="font-bold">Hardware Notice</div>
+                                <div className="font-bold text-rose-900">Hardware Notice</div>
                                 <div>{scanError}</div>
-                                <div className="text-slate-400 mt-1">If no physical camera is plugged in, click any sample leaf above to test real YOLO11n inference.</div>
+                                <div className="text-slate-600 mt-1">If no physical camera is plugged in, click any sample leaf above to test real YOLO11n inference.</div>
                               </div>
                             </div>
                           )}
                         </div>
                       </div>
 
-                      <div className="flex justify-between items-center pt-3 border-t border-slate-700">
+                      <div className="flex justify-between items-center pt-3 border-t border-slate-200">
                         <button
                           onClick={() => setWizardStep(1)}
-                          className="bg-slate-700 hover:bg-slate-600 text-slate-200 px-4 py-2 rounded-xl text-xs font-bold"
+                          className="bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-xl text-xs font-bold border border-slate-300"
                         >
                           {t('btn_back')}
                         </button>
@@ -948,37 +950,37 @@ export default function App() {
 
                   {/* WIZARD STEP 3: IMAGE QUALITY CHECK */}
                   {wizardStep === 3 && scanResult && (
-                    <div className="bg-slate-800/60 border border-slate-700 rounded-2xl p-6 space-y-4">
+                    <div className="bg-white border border-slate-200 rounded-2xl p-6 space-y-4 shadow-sm">
                       <div className="space-y-1">
-                        <h2 className="text-xl font-bold text-slate-100">{t('step_3_title')}</h2>
-                        <p className="text-xs text-slate-400">{t('step_3_desc')}</p>
+                        <h2 className="text-xl font-bold text-slate-900">{t('step_3_title')}</h2>
+                        <p className="text-xs text-slate-500">{t('step_3_desc')}</p>
                       </div>
 
-                      <div className={`p-4 rounded-xl border-2 ${
-                        scanResult.image_quality.passed ? 'bg-emerald-950/40 border-emerald-600/80 text-emerald-200' : 'bg-amber-950/40 border-amber-600/80 text-amber-200'
+                      <div className={`p-4 rounded-2xl border-2 ${
+                        scanResult.image_quality.passed ? 'bg-emerald-50 border-emerald-500 text-emerald-950' : 'bg-amber-50 border-amber-500 text-amber-950'
                       }`}>
                         <div className="flex justify-between items-center font-bold">
                           <span className="flex items-center space-x-2 text-base">
-                            {scanResult.image_quality.passed ? <CheckCircle className="w-5 h-5 text-emerald-400" /> : <AlertTriangle className="w-5 h-5 text-amber-400" />}
+                            {scanResult.image_quality.passed ? <CheckCircle className="w-5 h-5 text-emerald-600" /> : <AlertTriangle className="w-5 h-5 text-amber-600" />}
                             <span>{scanResult.image_quality.passed ? 'Image Quality Passed' : 'Image Quality Warning'}</span>
                           </span>
-                          <span className="font-mono text-sm font-bold">Sharpness: {scanResult.image_quality.blur_score}</span>
+                          <span className="font-mono text-sm font-bold text-slate-800">Sharpness: {scanResult.image_quality.blur_score}</span>
                         </div>
-                        <p className="mt-2 text-xs font-medium">
+                        <p className="mt-2 text-xs font-medium text-slate-700">
                           {scanResult.image_quality.farmer_instruction || scanResult.image_quality.error_reason || 'Image meets diagnostic resolution and exposure requirements.'}
                         </p>
                       </div>
 
-                      <div className="grid grid-cols-3 gap-3 text-xs font-mono bg-slate-900/80 p-3.5 rounded-xl border border-slate-800">
-                        <div>Sharpness (Blur): <b className="text-slate-200">{scanResult.image_quality.blur_score}</b></div>
-                        <div>Exposure (Luminance): <b className="text-slate-200">{scanResult.image_quality.brightness_score}</b></div>
-                        <div>Resolution: <b className="text-slate-200">{scanResult.image_quality.resolution}</b></div>
+                      <div className="grid grid-cols-3 gap-3 text-xs font-mono bg-slate-50 p-3.5 rounded-xl border border-slate-200 text-slate-700">
+                        <div>Sharpness (Blur): <b className="text-slate-900">{scanResult.image_quality.blur_score}</b></div>
+                        <div>Exposure (Luminance): <b className="text-slate-900">{scanResult.image_quality.brightness_score}</b></div>
+                        <div>Resolution: <b className="text-slate-900">{scanResult.image_quality.resolution}</b></div>
                       </div>
 
-                      <div className="flex justify-between items-center pt-3 border-t border-slate-700">
+                      <div className="flex justify-between items-center pt-3 border-t border-slate-200">
                         <button
                           onClick={() => setWizardStep(2)}
-                          className="bg-slate-700 hover:bg-slate-600 text-slate-200 px-4 py-2 rounded-xl text-xs font-bold flex items-center space-x-1"
+                          className="bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-xl text-xs font-bold flex items-center space-x-1 border border-slate-300"
                         >
                           <RotateCcw className="w-4 h-4" />
                           <span>{t('btn_retake')}</span>
@@ -986,7 +988,7 @@ export default function App() {
 
                         <button
                           onClick={() => setWizardStep(4)}
-                          className="bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-2.5 rounded-xl text-sm font-bold flex items-center space-x-2"
+                          className="bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-2.5 rounded-xl text-sm font-bold flex items-center space-x-2 shadow"
                         >
                           <span>{t('btn_next')}</span>
                           <ArrowRight className="w-4 h-4" />
@@ -997,36 +999,36 @@ export default function App() {
 
                   {/* WIZARD STEP 4: AI VISION ANALYSIS */}
                   {wizardStep === 4 && scanResult && (
-                    <div className="bg-slate-800/60 border border-slate-700 rounded-2xl p-6 space-y-4">
+                    <div className="bg-white border border-slate-200 rounded-2xl p-6 space-y-4 shadow-sm">
                       <div className="space-y-1">
-                        <h2 className="text-xl font-bold text-slate-100">{t('step_4_title')}</h2>
-                        <p className="text-xs text-slate-400">{t('step_4_desc')}</p>
+                        <h2 className="text-xl font-bold text-slate-900">{t('step_4_title')}</h2>
+                        <p className="text-xs text-slate-500">{t('step_4_desc')}</p>
                       </div>
 
-                      <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-3">
+                      <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 space-y-3.5">
                         <div className="flex justify-between items-center">
-                          <span className="text-xs text-slate-400 font-bold">TEJAS AI PATHOLOGY DIAGNOSIS</span>
+                          <span className="text-xs text-slate-500 font-bold uppercase tracking-wider">TEJAS AI PATHOLOGY DIAGNOSIS</span>
                           <div className="flex items-center space-x-1.5">
-                            <span className="text-[10px] font-mono text-cyan-300 bg-cyan-950 px-2 py-0.5 rounded border border-cyan-800">
+                            <span className="text-[10px] font-mono font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded border border-emerald-300">
                               {scanResult.model_name}
                             </span>
-                            <span className="text-xs font-mono text-purple-400 bg-purple-950 px-2 py-0.5 rounded border border-purple-800">
+                            <span className="text-xs font-mono text-purple-700 bg-purple-50 px-2 py-0.5 rounded border border-purple-200 font-semibold">
                               {scanResult.inference_device} ({scanResult.inference_time_ms}ms)
                             </span>
                           </div>
                         </div>
 
-                        <div className="text-2xl font-black text-slate-100">{scanResult.prediction}</div>
+                        <div className="text-2xl font-black text-slate-900">{scanResult.prediction}</div>
 
                         {/* Confidence Gauge */}
                         <div>
-                          <div className="flex justify-between text-xs font-mono text-slate-300 mb-1">
+                          <div className="flex justify-between text-xs font-mono text-slate-600 mb-1">
                             <span>Model Confidence</span>
-                            <b>{(scanResult.confidence * 100).toFixed(1)}%</b>
+                            <b className="text-slate-900">{(scanResult.confidence * 100).toFixed(1)}%</b>
                           </div>
-                          <div className="w-full h-3 bg-slate-800 rounded-full overflow-hidden">
+                          <div className="w-full h-3 bg-slate-200 rounded-full overflow-hidden">
                             <div 
-                              className={`h-full ${scanResult.confidence >= 0.70 ? 'bg-emerald-500' : 'bg-amber-500'}`} 
+                              className={`h-full ${scanResult.confidence >= 0.70 ? 'bg-emerald-600' : 'bg-amber-500'}`} 
                               style={{ width: `${Math.min(scanResult.confidence * 100, 100)}%` }}
                             ></div>
                           </div>
@@ -1034,19 +1036,19 @@ export default function App() {
 
                         {/* Top-3 Ranked Predictions */}
                         {scanResult.top_predictions && scanResult.top_predictions.length > 0 && (
-                          <div className="space-y-2 bg-slate-950/60 p-3 rounded-xl border border-slate-800/80">
-                            <div className="text-[11px] font-mono text-slate-400 font-semibold">TOP RANKED CLASSES</div>
-                            <div className="space-y-1.5">
+                          <div className="space-y-2 bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm">
+                            <div className="text-[11px] font-mono text-slate-500 font-bold uppercase">TOP RANKED CLASSES</div>
+                            <div className="space-y-2">
                               {scanResult.top_predictions.slice(0, 3).map((item, idx) => (
                                 <div key={idx} className="space-y-0.5">
-                                  <div className="flex justify-between text-xs text-slate-300">
-                                    <span>#{idx + 1} {item.class_name.replace(/_/g, ' ')}</span>
-                                    <b className="font-mono text-slate-200">{(item.confidence * 100).toFixed(1)}%</b>
+                                  <div className="flex justify-between text-xs text-slate-700">
+                                    <span className="font-semibold">#{idx + 1} {item.class_name.replace(/_/g, ' ')}</span>
+                                    <b className="font-mono text-slate-900">{(item.confidence * 100).toFixed(1)}%</b>
                                   </div>
-                                  <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                                  <div className="w-full h-1.5 bg-slate-200 rounded-full overflow-hidden">
                                     <div 
                                       className={`h-full rounded-full transition-all duration-300 ${
-                                        idx === 0 ? 'bg-emerald-500' : idx === 1 ? 'bg-cyan-500' : 'bg-slate-600'
+                                        idx === 0 ? 'bg-emerald-600' : idx === 1 ? 'bg-teal-600' : 'bg-slate-400'
                                       }`} 
                                       style={{ width: `${Math.max(item.confidence * 100, 1)}%` }}
                                     ></div>
@@ -1058,16 +1060,16 @@ export default function App() {
                         )}
 
                         {scanResult.status === 'low_confidence' && (
-                          <div className="bg-amber-950/60 border border-amber-800 text-amber-300 p-2.5 rounded-lg text-xs">
+                          <div className="bg-amber-50 border border-amber-200 text-amber-800 p-3 rounded-xl text-xs font-medium">
                             AI result is uncertain (&lt; 70% threshold). Proceeding with caution.
                           </div>
                         )}
                       </div>
 
-                      <div className="flex justify-between items-center pt-3 border-t border-slate-700">
+                      <div className="flex justify-between items-center pt-3 border-t border-slate-200">
                         <button
                           onClick={() => setWizardStep(3)}
-                          className="bg-slate-700 hover:bg-slate-600 text-slate-200 px-4 py-2 rounded-xl text-xs font-bold"
+                          className="bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-xl text-xs font-bold border border-slate-300"
                         >
                           {t('btn_back')}
                         </button>
@@ -1077,7 +1079,7 @@ export default function App() {
                             if (selectedFieldId) await triggerLiveSoil(selectedFieldId);
                             setWizardStep(5);
                           }}
-                          className="bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-2.5 rounded-xl text-sm font-bold flex items-center space-x-2"
+                          className="bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-2.5 rounded-xl text-sm font-bold flex items-center space-x-2 shadow"
                         >
                           <span>{t('btn_next')}</span>
                           <ArrowRight className="w-4 h-4" />
@@ -1088,16 +1090,16 @@ export default function App() {
 
                   {/* WIZARD STEP 5: 6-PARAM SOIL TELEMETRY */}
                   {wizardStep === 5 && (
-                    <div className="bg-slate-800/60 border border-slate-700 rounded-2xl p-6 space-y-4">
+                    <div className="bg-white border border-slate-200 rounded-2xl p-6 space-y-4 shadow-sm">
                       <div className="flex justify-between items-center">
                         <div>
-                          <h2 className="text-xl font-bold text-slate-100">{t('step_5_title')}</h2>
-                          <p className="text-xs text-slate-400">{t('step_5_desc')}</p>
+                          <h2 className="text-xl font-bold text-slate-900">{t('step_5_title')}</h2>
+                          <p className="text-xs text-slate-500">{t('step_5_desc')}</p>
                         </div>
                         <button
                           onClick={() => selectedFieldId && triggerLiveSoil(selectedFieldId)}
                           disabled={isReadingSoil}
-                          className="bg-cyan-600 hover:bg-cyan-500 text-white px-3 py-1.5 rounded-lg text-xs font-bold flex items-center space-x-1"
+                          className="bg-teal-600 hover:bg-teal-500 text-white px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center space-x-1 shadow-sm"
                         >
                           <RefreshCw className={`w-3.5 h-3.5 ${isReadingSoil ? 'animate-spin' : ''}`} />
                           <span>Re-read Sensor</span>
@@ -1105,59 +1107,59 @@ export default function App() {
                       </div>
 
                       <div className="grid grid-cols-3 gap-3">
-                        <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-3.5">
-                          <div className="text-xs text-slate-400 font-semibold">{t('soil_n')}</div>
-                          <div className="text-xl font-extrabold text-cyan-400 mt-1 font-mono">
+                        <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 text-center">
+                          <div className="text-xs text-slate-500 font-bold uppercase">{t('soil_n')}</div>
+                          <div className="text-2xl font-black text-emerald-700 mt-1 font-mono">
                             {liveSoilReading?.nitrogen !== null && liveSoilReading?.nitrogen !== undefined ? `${liveSoilReading.nitrogen} mg/kg` : '--'}
                           </div>
                         </div>
 
-                        <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-3.5">
-                          <div className="text-xs text-slate-400 font-semibold">{t('soil_p')}</div>
-                          <div className="text-xl font-extrabold text-cyan-400 mt-1 font-mono">
+                        <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 text-center">
+                          <div className="text-xs text-slate-500 font-bold uppercase">{t('soil_p')}</div>
+                          <div className="text-2xl font-black text-emerald-700 mt-1 font-mono">
                             {liveSoilReading?.phosphorus !== null && liveSoilReading?.phosphorus !== undefined ? `${liveSoilReading.phosphorus} mg/kg` : '--'}
                           </div>
                         </div>
 
-                        <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-3.5">
-                          <div className="text-xs text-slate-400 font-semibold">{t('soil_k')}</div>
-                          <div className="text-xl font-extrabold text-cyan-400 mt-1 font-mono">
+                        <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 text-center">
+                          <div className="text-xs text-slate-500 font-bold uppercase">{t('soil_k')}</div>
+                          <div className="text-2xl font-black text-emerald-700 mt-1 font-mono">
                             {liveSoilReading?.potassium !== null && liveSoilReading?.potassium !== undefined ? `${liveSoilReading.potassium} mg/kg` : '--'}
                           </div>
                         </div>
 
-                        <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-3.5">
-                          <div className="text-xs text-slate-400 font-semibold">{t('soil_ph')}</div>
-                          <div className="text-xl font-extrabold text-cyan-400 mt-1 font-mono">
+                        <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 text-center">
+                          <div className="text-xs text-slate-500 font-bold uppercase">{t('soil_ph')}</div>
+                          <div className="text-2xl font-black text-emerald-700 mt-1 font-mono">
                             {liveSoilReading?.ph !== null && liveSoilReading?.ph !== undefined ? `${liveSoilReading.ph} pH` : '--'}
                           </div>
                         </div>
 
-                        <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-3.5">
-                          <div className="text-xs text-slate-400 font-semibold">{t('soil_moisture')}</div>
-                          <div className="text-xl font-extrabold text-cyan-400 mt-1 font-mono">
+                        <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 text-center">
+                          <div className="text-xs text-slate-500 font-bold uppercase">{t('soil_moisture')}</div>
+                          <div className="text-2xl font-black text-emerald-700 mt-1 font-mono">
                             {liveSoilReading?.moisture !== null && liveSoilReading?.moisture !== undefined ? `${liveSoilReading.moisture}%` : '--'}
                           </div>
                         </div>
 
-                        <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-3.5">
-                          <div className="text-xs text-slate-400 font-semibold">{t('soil_temp')}</div>
-                          <div className="text-xl font-extrabold text-cyan-400 mt-1 font-mono">
+                        <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 text-center">
+                          <div className="text-xs text-slate-500 font-bold uppercase">{t('soil_temp')}</div>
+                          <div className="text-2xl font-black text-emerald-700 mt-1 font-mono">
                             {liveSoilReading?.temperature !== null && liveSoilReading?.temperature !== undefined ? `${liveSoilReading.temperature}°C` : '--'}
                           </div>
                         </div>
                       </div>
 
                       {liveSoilReading?.is_mock && (
-                        <div className="text-[11px] font-mono text-amber-400 bg-amber-950/40 p-2 rounded border border-amber-800/40">
+                        <div className="text-[11px] font-mono text-amber-800 bg-amber-50 p-2.5 rounded-lg border border-amber-200 font-medium">
                           Note: Simulated soil telemetry active in DEMO_MODE.
                         </div>
                       )}
 
-                      <div className="flex justify-between items-center pt-3 border-t border-slate-700">
+                      <div className="flex justify-between items-center pt-3 border-t border-slate-200">
                         <button
                           onClick={() => setWizardStep(4)}
-                          className="bg-slate-700 hover:bg-slate-600 text-slate-200 px-4 py-2 rounded-xl text-xs font-bold"
+                          className="bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-xl text-xs font-bold border border-slate-300"
                         >
                           {t('btn_back')}
                         </button>
@@ -1168,7 +1170,7 @@ export default function App() {
                             setWizardStep(6);
                           }}
                           disabled={isFusing}
-                          className="bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-2.5 rounded-xl text-sm font-bold flex items-center space-x-2"
+                          className="bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-2.5 rounded-xl text-sm font-bold flex items-center space-x-2 shadow"
                         >
                           {isFusing ? <RefreshCw className="w-4 h-4 animate-spin" /> : null}
                           <span>Synthesize Multi-Modal Fusion</span>
@@ -1180,47 +1182,47 @@ export default function App() {
 
                   {/* WIZARD STEP 6: CROP + SOIL FUSION & MULTIMODAL RISK */}
                   {wizardStep === 6 && fusionResult && (
-                    <div className="bg-slate-800/60 border border-slate-700 rounded-2xl p-6 space-y-4">
+                    <div className="bg-white border border-slate-200 rounded-2xl p-6 space-y-4 shadow-sm">
                       <div className="space-y-1">
-                        <h2 className="text-xl font-bold text-slate-100">{t('step_6_title')}</h2>
-                        <p className="text-xs text-slate-400">{t('step_6_desc')}</p>
+                        <h2 className="text-xl font-bold text-slate-900">{t('step_6_title')}</h2>
+                        <p className="text-xs text-slate-500">{t('step_6_desc')}</p>
                       </div>
 
                       {/* Multimodal Risk Card */}
-                      <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-3">
+                      <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 space-y-3.5">
                         <div className="flex justify-between items-center">
-                          <span className="text-xs text-slate-400 font-bold">OVERALL FIELD RISK LEVEL</span>
-                          <span className={`px-2.5 py-1 rounded text-xs font-extrabold ${
-                            fusionResult.risk.risk_level === 'CRITICAL' ? 'bg-rose-950 text-rose-300 border border-rose-800' :
-                            fusionResult.risk.risk_level === 'HIGH' ? 'bg-rose-900 text-rose-200 border border-rose-700' :
-                            fusionResult.risk.risk_level === 'MODERATE' ? 'bg-amber-950 text-amber-300 border border-amber-800' :
-                            fusionResult.risk.risk_level === 'LOW' ? 'bg-emerald-950 text-emerald-300 border border-emerald-800' :
-                            'bg-slate-800 text-slate-400 border border-slate-700'
+                          <span className="text-xs text-slate-500 font-bold uppercase tracking-wider">OVERALL FIELD RISK LEVEL</span>
+                          <span className={`px-3 py-1 rounded-lg text-xs font-black tracking-wider ${
+                            fusionResult.risk.risk_level === 'CRITICAL' ? 'bg-rose-100 text-rose-800 border border-rose-300' :
+                            fusionResult.risk.risk_level === 'HIGH' ? 'bg-rose-50 text-rose-700 border border-rose-200' :
+                            fusionResult.risk.risk_level === 'MODERATE' ? 'bg-amber-100 text-amber-800 border border-amber-300' :
+                            fusionResult.risk.risk_level === 'LOW' ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' :
+                            'bg-slate-100 text-slate-600 border border-slate-200'
                           }`}>
                             {fusionResult.risk.risk_level}
                           </span>
                         </div>
 
-                        <p className="text-sm text-slate-200 font-medium">{fusionResult.risk.explanation}</p>
+                        <p className="text-sm text-slate-800 font-medium leading-relaxed">{fusionResult.risk.explanation}</p>
 
-                        <div className="grid grid-cols-3 gap-2 pt-2 border-t border-slate-800 text-xs font-mono">
-                          <div>Disease: <b className="text-rose-400">{fusionResult.risk.disease_risk}</b></div>
-                          <div>Soil Stress: <b className="text-amber-400">{fusionResult.risk.soil_stress}</b></div>
-                          <div>Completeness: <b className="text-cyan-400">{(fusionResult.risk.data_completeness * 100).toFixed(0)}%</b></div>
+                        <div className="grid grid-cols-3 gap-2 pt-3 border-t border-slate-200 text-xs font-mono">
+                          <div>Disease: <b className="text-rose-600">{fusionResult.risk.disease_risk}</b></div>
+                          <div>Soil Stress: <b className="text-amber-600">{fusionResult.risk.soil_stress}</b></div>
+                          <div>Completeness: <b className="text-teal-700">{(fusionResult.risk.data_completeness * 100).toFixed(0)}%</b></div>
                         </div>
                       </div>
 
-                      <div className="flex justify-between items-center pt-3 border-t border-slate-700">
+                      <div className="flex justify-between items-center pt-3 border-t border-slate-200">
                         <button
                           onClick={() => setWizardStep(5)}
-                          className="bg-slate-700 hover:bg-slate-600 text-slate-200 px-4 py-2 rounded-xl text-xs font-bold"
+                          className="bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-xl text-xs font-bold border border-slate-300"
                         >
                           {t('btn_back')}
                         </button>
 
                         <button
                           onClick={() => setWizardStep(7)}
-                          className="bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-2.5 rounded-xl text-sm font-bold flex items-center space-x-2"
+                          className="bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-2.5 rounded-xl text-sm font-bold flex items-center space-x-2 shadow"
                         >
                           <span>View Farmer Advisories</span>
                           <ArrowRight className="w-4 h-4" />
@@ -1231,37 +1233,37 @@ export default function App() {
 
                   {/* WIZARD STEP 7: ACTIONABLE FARMER ADVISORY & PERSISTENCE */}
                   {wizardStep === 7 && fusionResult && (
-                    <div className="bg-slate-800/60 border border-slate-700 rounded-2xl p-6 space-y-4">
+                    <div className="bg-white border border-slate-200 rounded-2xl p-6 space-y-4 shadow-sm">
                       <div className="space-y-1">
-                        <h2 className="text-xl font-bold text-slate-100">{t('step_7_title')}</h2>
-                        <p className="text-xs text-slate-400">{t('step_7_desc')}</p>
+                        <h2 className="text-xl font-bold text-slate-900">{t('step_7_title')}</h2>
+                        <p className="text-xs text-slate-500">{t('step_7_desc')}</p>
                       </div>
 
                       <div className="space-y-3 max-h-72 overflow-y-auto pr-1">
                         {fusionResult.advisories.map((adv, idx) => (
-                          <div key={idx} className="bg-slate-900 border border-slate-800 rounded-xl p-4 space-y-2">
+                          <div key={idx} className="bg-slate-50 border border-slate-200 rounded-2xl p-4 space-y-2.5 shadow-sm">
                             <div className="flex justify-between items-center">
-                              <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                                adv.priority === 'URGENT' ? 'bg-rose-950 text-rose-300 border border-rose-800' :
-                                adv.priority === 'HIGH' ? 'bg-amber-950 text-amber-300 border border-amber-800' :
-                                'bg-emerald-950 text-emerald-300 border border-emerald-800'
+                              <span className={`px-2.5 py-0.5 rounded text-[10px] font-black tracking-wider ${
+                                adv.priority === 'URGENT' ? 'bg-rose-100 text-rose-800 border border-rose-300' :
+                                adv.priority === 'HIGH' ? 'bg-amber-100 text-amber-800 border border-amber-300' :
+                                'bg-emerald-100 text-emerald-800 border border-emerald-300'
                               }`}>
                                 {adv.priority} PRIORITY
                               </span>
-                              <span className="text-xs font-bold text-slate-200">{adv.title}</span>
+                              <span className="text-xs font-bold text-slate-900">{adv.title}</span>
                             </div>
-                            <div className="text-xs text-slate-300"><b>Observation:</b> {adv.message}</div>
-                            <div className="bg-slate-950 p-2.5 rounded-lg border border-slate-800 text-xs text-emerald-300">
+                            <div className="text-xs text-slate-700"><b>Observation:</b> {adv.message}</div>
+                            <div className="bg-emerald-50 p-3 rounded-xl border border-emerald-200 text-xs text-emerald-950 font-medium">
                               <b>Action:</b> {adv.recommended_action}
                             </div>
                           </div>
                         ))}
                       </div>
 
-                      <div className="flex justify-between items-center pt-3 border-t border-slate-700">
+                      <div className="flex justify-between items-center pt-3 border-t border-slate-200">
                         <button
                           onClick={() => setWizardStep(1)}
-                          className="bg-slate-700 hover:bg-slate-600 text-slate-200 px-4 py-2 rounded-xl text-xs font-bold flex items-center space-x-1"
+                          className="bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-xl text-xs font-bold flex items-center space-x-1 border border-slate-300"
                         >
                           <RotateCcw className="w-4 h-4" />
                           <span>Start New Scan</span>
@@ -1272,7 +1274,7 @@ export default function App() {
                             setActiveTab('history');
                             if (selectedFieldId) loadHistory(selectedFieldId);
                           }}
-                          className="bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-2.5 rounded-xl text-sm font-bold flex items-center space-x-2"
+                          className="bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-2.5 rounded-xl text-sm font-bold flex items-center space-x-2 shadow"
                         >
                           <Check className="w-4 h-4" />
                           <span>{t('btn_finish')}</span>
@@ -1288,15 +1290,15 @@ export default function App() {
               {/* ========================================================= */}
               {activeTab === 'fields' && (
                 <div className="space-y-4">
-                  <div className="flex justify-between items-center bg-slate-800/60 border border-slate-700 rounded-xl p-4">
+                  <div className="flex justify-between items-center bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
                     <div>
-                      <div className="font-bold text-sm text-slate-200">Registered Agricultural Fields</div>
-                      <div className="text-xs text-slate-400">Total {fields.length} active plots in local SQLite</div>
+                      <div className="font-bold text-sm text-slate-900">Registered Agricultural Fields</div>
+                      <div className="text-xs text-slate-500">Total {fields.length} active plots in local SQLite</div>
                     </div>
 
                     <button
                       onClick={() => setShowAddFieldModal(true)}
-                      className="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center space-x-1.5"
+                      className="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center space-x-1.5 shadow"
                     >
                       <PlusCircle className="w-4 h-4" />
                       <span>{t('btn_add_field')}</span>
@@ -1307,28 +1309,28 @@ export default function App() {
                     {fields.map(field => (
                       <div 
                         key={field.id}
-                        className={`bg-slate-800/80 border rounded-xl p-4 space-y-3 transition ${
-                          selectedFieldId === field.id ? 'border-emerald-500 ring-1 ring-emerald-500' : 'border-slate-700'
+                        className={`bg-white border rounded-2xl p-5 space-y-3 transition shadow-sm ${
+                          selectedFieldId === field.id ? 'border-emerald-600 ring-2 ring-emerald-300' : 'border-slate-200'
                         }`}
                       >
                         <div className="flex justify-between items-start">
                           <div>
-                            <div className="text-lg font-extrabold text-slate-100">{field.name}</div>
-                            <div className="text-xs text-slate-400 mt-0.5">Soil Type: <b className="text-slate-300">{field.soil_type || 'General'}</b></div>
+                            <div className="text-lg font-black text-slate-900">{field.name}</div>
+                            <div className="text-xs text-slate-500 mt-0.5">Soil Type: <b className="text-slate-800">{field.soil_type || 'General'}</b></div>
                           </div>
-                          <span className="text-xs font-mono text-cyan-400 bg-slate-900 px-2 py-0.5 rounded border border-slate-800">
+                          <span className="text-xs font-mono text-emerald-800 bg-emerald-50 px-2.5 py-0.5 rounded-md border border-emerald-200 font-bold">
                             {field.area || 1.0} {field.area_unit}
                           </span>
                         </div>
 
-                        <div className="pt-2 border-t border-slate-700/60 flex justify-between items-center">
+                        <div className="pt-2 border-t border-slate-100 flex justify-between items-center">
                           <button
                             onClick={() => {
                               setSelectedFieldId(field.id);
                               setActiveTab('wizard');
                               setWizardStep(1);
                             }}
-                            className="bg-emerald-600 hover:bg-emerald-500 text-white px-3.5 py-1.5 rounded-lg text-xs font-bold flex items-center space-x-1"
+                            className="bg-emerald-600 hover:bg-emerald-500 text-white px-3.5 py-1.5 rounded-lg text-xs font-bold flex items-center space-x-1 shadow-sm"
                           >
                             <span>Start Field Check</span>
                             <ArrowRight className="w-3.5 h-3.5" />
@@ -1339,7 +1341,7 @@ export default function App() {
                               setSelectedFieldId(field.id);
                               setActiveTab('history');
                             }}
-                            className="text-xs text-slate-400 hover:text-white"
+                            className="text-xs text-slate-500 hover:text-slate-900 font-medium"
                           >
                             View Timeline
                           </button>
@@ -1355,13 +1357,13 @@ export default function App() {
               {/* ========================================================= */}
               {activeTab === 'scanner' && (
                 <div className="space-y-4">
-                  <div className="bg-slate-800/60 border border-slate-700 rounded-xl p-4 flex items-center justify-between">
+                  <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm flex items-center justify-between">
                     <div className="flex items-center space-x-3">
-                      <label className="text-xs font-semibold text-slate-300">Target Field:</label>
+                      <label className="text-xs font-bold text-slate-700">Target Field:</label>
                       <select 
                         value={selectedFieldId || ''} 
                         onChange={(e) => setSelectedFieldId(Number(e.target.value))}
-                        className="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-slate-200 font-medium"
+                        className="bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 font-medium"
                       >
                         {fields.map(f => (
                           <option key={f.id} value={f.id}>{f.name} ({f.soil_type || 'General'})</option>
@@ -1370,8 +1372,8 @@ export default function App() {
                     </div>
 
                     <div className="flex items-center space-x-2">
-                      <label className="cursor-pointer bg-slate-700 hover:bg-slate-600 text-slate-200 px-3.5 py-1.5 rounded-lg text-xs font-semibold flex items-center space-x-1.5">
-                        <Upload className="w-3.5 h-3.5" />
+                      <label className="cursor-pointer bg-slate-100 hover:bg-slate-200 text-slate-700 px-3.5 py-1.5 rounded-lg text-xs font-bold flex items-center space-x-1.5 border border-slate-300">
+                        <Upload className="w-3.5 h-3.5 text-slate-600" />
                         <span>Upload</span>
                         <input type="file" accept="image/*" className="hidden" onChange={handleFileSelect} />
                       </label>
@@ -1379,7 +1381,7 @@ export default function App() {
                       <button
                         onClick={() => executeScan(true)}
                         disabled={isScanning || isPredictingDisease || isLoadingSample}
-                        className="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-1.5 rounded-lg text-xs font-bold flex items-center space-x-1.5"
+                        className="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-1.5 rounded-lg text-xs font-bold flex items-center space-x-1.5 shadow"
                       >
                         {isScanning ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Camera className="w-3.5 h-3.5" />}
                         <span>Capture</span>
@@ -1389,7 +1391,7 @@ export default function App() {
                         <button
                           onClick={() => handlePredictDisease()}
                           disabled={isPredictingDisease || isLoadingSample}
-                          className="bg-cyan-600 hover:bg-cyan-500 text-white px-3.5 py-1.5 rounded-lg text-xs font-bold flex items-center space-x-1.5 shadow-md"
+                          className="bg-teal-600 hover:bg-teal-500 text-white px-3.5 py-1.5 rounded-lg text-xs font-bold flex items-center space-x-1.5 shadow"
                         >
                           {isPredictingDisease ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Zap className="w-3.5 h-3.5" />}
                           <span>Classify (YOLO11n)</span>
@@ -1399,13 +1401,13 @@ export default function App() {
                   </div>
 
                   {/* One-Touch Sample Leaf Classifier Bar */}
-                  <div className="bg-slate-900/90 border border-slate-700/80 rounded-xl p-3.5 space-y-2">
+                  <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 space-y-2.5">
                     <div className="flex items-center justify-between">
-                      <div className="text-xs font-bold text-slate-200 flex items-center space-x-1.5">
-                        <Zap className="w-4 h-4 text-amber-400 shrink-0" />
+                      <div className="text-xs font-bold text-slate-800 flex items-center space-x-1.5">
+                        <Zap className="w-4 h-4 text-amber-500 shrink-0" />
                         <span>One-Touch Sample Image Classification (Held-Out Test Set):</span>
                       </div>
-                      <span className="text-[10px] font-mono text-cyan-300 bg-cyan-950/80 border border-cyan-800/60 px-2 py-0.5 rounded">
+                      <span className="text-[10px] font-mono font-bold text-emerald-800 bg-emerald-100 border border-emerald-300 px-2 py-0.5 rounded-md">
                         Offline YOLO11n ONNX
                       </span>
                     </div>
@@ -1419,8 +1421,8 @@ export default function App() {
                           disabled={isLoadingSample || isPredictingDisease}
                           className={`px-3 py-1.5 rounded-lg text-xs font-bold transition border flex items-center space-x-1.5 ${
                             selectedSampleId === s.id
-                              ? 'bg-emerald-600 text-white border-emerald-400 shadow-md ring-1 ring-emerald-400'
-                              : 'bg-slate-800 text-slate-200 border-slate-700 hover:bg-slate-700 hover:text-white'
+                              ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm ring-2 ring-emerald-300'
+                              : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'
                           }`}
                         >
                           <span>{s.label}</span>
@@ -1433,7 +1435,7 @@ export default function App() {
                           const found = samplesList.find(x => x.id === e.target.value);
                           if (found) handleSelectSample(found, true);
                         }}
-                        className="bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-slate-300 font-medium ml-auto"
+                        className="bg-white border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs text-slate-700 font-medium ml-auto"
                       >
                         <option value="" disabled>More Disease Classes (10)...</option>
                         {samplesList.map(s => (
@@ -1444,15 +1446,15 @@ export default function App() {
                   </div>
 
                   {diseasePredictError && (
-                    <div className="bg-rose-950/80 border border-rose-800 text-rose-300 p-3 rounded-xl text-xs flex items-center space-x-2">
-                      <AlertTriangle className="w-4 h-4 shrink-0 text-rose-400" />
+                    <div className="bg-rose-50 border border-rose-200 text-rose-800 p-3 rounded-xl text-xs flex items-center space-x-2">
+                      <AlertTriangle className="w-4 h-4 shrink-0 text-rose-600" />
                       <span>{diseasePredictError}</span>
                     </div>
                   )}
 
                   <div className="grid grid-cols-2 gap-4">
                     {/* Left: Viewfinder / Image Preview */}
-                    <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 flex flex-col items-center justify-center min-h-[280px]">
+                    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex flex-col items-center justify-center min-h-[280px] text-slate-100">
                       {previewUrl ? (
                         <div className="relative w-full flex flex-col items-center">
                           <img src={previewUrl} alt="Scan preview" className="max-h-60 object-contain rounded-lg shadow-lg border border-slate-700/60" />
@@ -1463,59 +1465,59 @@ export default function App() {
                           )}
                         </div>
                       ) : (
-                        <div className="text-center text-slate-500 space-y-2">
-                          <Camera className="w-10 h-10 mx-auto" />
-                          <div className="text-xs">Live Viewfinder Preview</div>
-                          <div className="text-[11px] text-slate-600">Upload or capture an image to classify</div>
+                        <div className="text-center text-slate-400 space-y-2">
+                          <Camera className="w-10 h-10 mx-auto text-slate-500" />
+                          <div className="text-xs font-bold text-slate-300">Live Viewfinder Preview</div>
+                          <div className="text-[11px] text-slate-500">Upload or capture an image to classify</div>
                         </div>
                       )}
                     </div>
 
                     {/* Right: Disease Inference Output */}
                     {isPredictingDisease ? (
-                      <div className="bg-slate-800/80 border border-slate-700 rounded-xl p-6 flex flex-col items-center justify-center space-y-3 min-h-[280px]">
-                        <RefreshCw className="w-8 h-8 text-cyan-400 animate-spin" />
-                        <div className="text-sm font-bold text-slate-200">Running YOLO11n ONNX Inference...</div>
-                        <div className="text-xs text-slate-400">Normalizing RGB (224&times;224) &bull; OpenCV DNN Engine</div>
+                      <div className="bg-white border border-slate-200 rounded-2xl p-6 flex flex-col items-center justify-center space-y-3 min-h-[280px] shadow-sm">
+                        <RefreshCw className="w-8 h-8 text-emerald-600 animate-spin" />
+                        <div className="text-sm font-bold text-slate-900">Running YOLO11n ONNX Inference...</div>
+                        <div className="text-xs text-slate-500">Normalizing RGB (224&times;224) &bull; OpenCV DNN Engine</div>
                       </div>
                     ) : diseasePrediction ? (
-                      <div className="bg-slate-800/80 border border-slate-700 rounded-xl p-4 space-y-3">
+                      <div className="bg-white border border-slate-200 rounded-2xl p-5 space-y-3.5 shadow-sm">
                         {/* Top Banner */}
                         <div className="flex justify-between items-center">
-                          <div className="text-xs font-bold text-slate-400">TEJAS AI PATHOLOGY DIAGNOSIS</div>
+                          <div className="text-xs font-bold text-slate-500 uppercase tracking-wider">TEJAS AI PATHOLOGY DIAGNOSIS</div>
                           <div className="flex items-center space-x-1.5">
-                            <span className="text-[10px] font-mono text-cyan-300 bg-cyan-950 px-2 py-0.5 rounded border border-cyan-800">
+                            <span className="text-[10px] font-mono font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded border border-emerald-300">
                               {diseasePrediction.model}
                             </span>
-                            <span className="text-[10px] font-bold text-emerald-300 bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800">
+                            <span className="text-[10px] font-bold text-emerald-900 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
                               {(diseasePrediction.prediction.confidence * 100).toFixed(1)}% CONFIDENCE
                             </span>
                           </div>
                         </div>
 
                         {/* Top-1 Diagnosis */}
-                        <div className="bg-slate-900/90 border border-slate-800 p-3 rounded-xl space-y-1">
-                          <div className="text-[11px] font-mono text-slate-400">PRIMARY PREDICTION (TOP-1)</div>
-                          <div className="text-xl font-black text-emerald-400">
+                        <div className="bg-slate-50 border border-slate-200 p-3.5 rounded-xl space-y-1">
+                          <div className="text-[11px] font-mono text-slate-500 font-bold">PRIMARY PREDICTION (TOP-1)</div>
+                          <div className="text-xl font-black text-emerald-800">
                             {diseasePrediction.prediction.class_name.replace(/_/g, ' ')}
                           </div>
                         </div>
 
                         {/* Top-3 Ranked Predictions */}
-                        <div className="space-y-2 bg-slate-900/60 p-3 rounded-xl border border-slate-800/80">
-                          <div className="text-[11px] font-mono text-slate-400 font-semibold">TOP-3 RANKED CLASSES</div>
+                        <div className="space-y-2 bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+                          <div className="text-[11px] font-mono text-slate-500 font-bold uppercase">TOP-3 RANKED CLASSES</div>
                           <div className="space-y-1.5">
                             {diseasePrediction.top_predictions.map((item, idx) => (
                               <div key={idx} className="space-y-0.5">
-                                <div className="flex justify-between text-xs text-slate-300">
-                                  <span>#{idx + 1} {item.class_name.replace(/_/g, ' ')}</span>
-                                  <b className="font-mono text-slate-200">{(item.confidence * 100).toFixed(1)}%</b>
+                                <div className="flex justify-between text-xs text-slate-700">
+                                  <span className="font-semibold">#{idx + 1} {item.class_name.replace(/_/g, ' ')}</span>
+                                  <b className="font-mono text-slate-900">{(item.confidence * 100).toFixed(1)}%</b>
                                 </div>
-                                <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                                <div className="w-full h-1.5 bg-slate-200 rounded-full overflow-hidden">
                                   <div 
                                     className={`h-full rounded-full transition-all duration-300 ${
-                                      idx === 0 ? 'bg-emerald-500' : idx === 1 ? 'bg-cyan-500' : 'bg-slate-600'
-                                    }`}
+                                      idx === 0 ? 'bg-emerald-600' : idx === 1 ? 'bg-teal-600' : 'bg-slate-400'
+                                    }`} 
                                     style={{ width: `${Math.max(item.confidence * 100, 1)}%` }}
                                   ></div>
                                 </div>
@@ -1525,8 +1527,8 @@ export default function App() {
                         </div>
 
                         {/* Responsible AI Disclaimer */}
-                        <div className="bg-slate-950 p-2.5 rounded-lg border border-slate-800 text-[11px] text-slate-400 space-y-1">
-                          <div className="text-amber-400 font-semibold flex items-center space-x-1">
+                        <div className="bg-amber-50 p-3 rounded-xl border border-amber-200 text-[11px] text-amber-900 space-y-1">
+                          <div className="text-amber-800 font-bold flex items-center space-x-1">
                             <ShieldAlert className="w-3.5 h-3.5 shrink-0" />
                             <span>99.63% top-1 accuracy on the held-out PlantVillage test set.</span>
                           </div>
@@ -1536,43 +1538,43 @@ export default function App() {
                         </div>
                       </div>
                     ) : scanResult ? (
-                      <div className="bg-slate-800/80 border border-slate-700 rounded-xl p-4 space-y-3">
+                      <div className="bg-white border border-slate-200 rounded-2xl p-5 space-y-3.5 shadow-sm">
                         <div className="flex justify-between items-center">
-                          <div className="text-xs font-bold text-slate-400">DIAGNOSIS RESULT</div>
+                          <div className="text-xs font-bold text-slate-500 uppercase tracking-wider">DIAGNOSIS RESULT</div>
                           <div className="flex items-center space-x-1.5">
                             {scanResult.confidence_tier && (
                               <span className={`text-[10px] font-extrabold px-2 py-0.5 rounded ${
-                                scanResult.confidence_tier === 'HIGH' ? 'bg-emerald-950 text-emerald-300 border border-emerald-800' :
-                                scanResult.confidence_tier === 'MEDIUM' ? 'bg-amber-950 text-amber-300 border border-amber-800' :
-                                'bg-rose-950 text-rose-300 border border-rose-800'
+                                scanResult.confidence_tier === 'HIGH' ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' :
+                                scanResult.confidence_tier === 'MEDIUM' ? 'bg-amber-100 text-amber-800 border border-amber-300' :
+                                'bg-rose-100 text-rose-800 border border-rose-300'
                               }`}>
                                 {scanResult.confidence_tier} CONFIDENCE
                               </span>
                             )}
-                            <span className="text-[10px] font-mono text-purple-300 bg-purple-950 px-2 py-0.5 rounded border border-purple-800">
+                            <span className="text-[10px] font-mono text-purple-700 bg-purple-50 px-2 py-0.5 rounded border border-purple-200">
                               {scanResult.inference_device} ({scanResult.inference_time_ms}ms)
                             </span>
                           </div>
                         </div>
 
-                        <div className="text-2xl font-black text-slate-100">{scanResult.prediction}</div>
+                        <div className="text-2xl font-black text-slate-900">{scanResult.prediction}</div>
 
-                        <div className="grid grid-cols-2 gap-2 text-xs font-mono bg-slate-900/80 p-2.5 rounded-lg border border-slate-800 text-slate-300">
-                          <div>Model: <b className="text-slate-200">{scanResult.model_name} v{scanResult.model_version}</b></div>
-                          <div>Hash: <b className="text-slate-200">{scanResult.model_hash ? scanResult.model_hash.substring(0, 8) : 'N/A'}</b></div>
-                          <div>Validation: <b className="text-amber-400">{scanResult.is_validated ? 'VALIDATED' : 'NOT YET VALIDATED'}</b></div>
-                          <div>Confidence: <b className="text-emerald-400">{(scanResult.confidence * 100).toFixed(1)}%</b></div>
+                        <div className="grid grid-cols-2 gap-2 text-xs font-mono bg-slate-50 p-3 rounded-xl border border-slate-200 text-slate-700">
+                          <div>Model: <b className="text-slate-900">{scanResult.model_name} v{scanResult.model_version}</b></div>
+                          <div>Hash: <b className="text-slate-900">{scanResult.model_hash ? scanResult.model_hash.substring(0, 8) : 'N/A'}</b></div>
+                          <div>Validation: <b className="text-amber-700">{scanResult.is_validated ? 'VALIDATED' : 'NOT YET VALIDATED'}</b></div>
+                          <div>Confidence: <b className="text-emerald-700">{(scanResult.confidence * 100).toFixed(1)}%</b></div>
                         </div>
 
-                        <div className="bg-slate-900 p-2.5 rounded-lg border border-slate-800 text-xs text-slate-300 space-y-1">
-                          <div className="font-semibold text-slate-200">{scanResult.message}</div>
+                        <div className="bg-slate-50 p-3 rounded-xl border border-slate-200 text-xs text-slate-700 space-y-1">
+                          <div className="font-bold text-slate-900">{scanResult.message}</div>
                           {scanResult.farmer_guidance && (
-                            <div className="text-[11px] text-emerald-400">{scanResult.farmer_guidance}</div>
+                            <div className="text-[11px] text-emerald-800">{scanResult.farmer_guidance}</div>
                           )}
                         </div>
                       </div>
                     ) : (
-                      <div className="bg-slate-800/40 border border-slate-700 rounded-xl p-6 text-center text-slate-500 flex items-center justify-center min-h-[280px]">
+                      <div className="bg-white border border-slate-200 rounded-2xl p-6 text-center text-slate-400 flex items-center justify-center min-h-[280px] shadow-sm">
                         <div>Ready to capture or upload leaf photo.</div>
                       </div>
                     )}
@@ -1585,16 +1587,16 @@ export default function App() {
               {/* ========================================================= */}
               {activeTab === 'soil' && (
                 <div className="space-y-4">
-                  <div className="flex justify-between items-center bg-slate-800/60 border border-slate-700 rounded-xl p-4">
+                  <div className="flex justify-between items-center bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
                     <div>
-                      <div className="font-bold text-sm text-slate-200">6-Parameter Soil Sensor Module</div>
-                      <div className="text-xs text-slate-400">RS485 Modbus-RTU Telemetry (Zero Hardware Hallucination)</div>
+                      <div className="font-bold text-sm text-slate-900">6-Parameter Soil Sensor Module</div>
+                      <div className="text-xs text-slate-500">RS485 Modbus-RTU Telemetry (Zero Hardware Hallucination)</div>
                     </div>
 
                     <button
                       onClick={() => selectedFieldId && triggerLiveSoil(selectedFieldId)}
                       disabled={isReadingSoil}
-                      className="bg-cyan-600 hover:bg-cyan-500 disabled:bg-slate-700 text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center space-x-1.5"
+                      className="bg-teal-600 hover:bg-teal-500 disabled:bg-slate-300 disabled:text-slate-500 text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center space-x-1.5 shadow"
                     >
                       <RefreshCw className={`w-3.5 h-3.5 ${isReadingSoil ? 'animate-spin' : ''}`} />
                       <span>Take Live Soil Reading</span>
@@ -1602,9 +1604,9 @@ export default function App() {
                   </div>
 
                   <div className="grid grid-cols-3 gap-4">
-                    <div className="bg-slate-800/80 border border-slate-700 rounded-xl p-4">
-                      <div className="text-xs text-slate-400 font-semibold">{t('soil_n')}</div>
-                      <div className="text-3xl font-extrabold text-cyan-400 mt-2 font-mono">
+                    <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm text-center">
+                      <div className="text-xs text-slate-500 font-bold uppercase">{t('soil_n')}</div>
+                      <div className="text-3xl font-black text-emerald-700 mt-2 font-mono">
                         {liveSoilReading?.nitrogen !== null && liveSoilReading?.nitrogen !== undefined ? `${liveSoilReading.nitrogen} mg/kg` : '--'}
                       </div>
                       <div className="text-[11px] text-slate-400 mt-1">
@@ -1612,9 +1614,9 @@ export default function App() {
                       </div>
                     </div>
 
-                    <div className="bg-slate-800/80 border border-slate-700 rounded-xl p-4">
-                      <div className="text-xs text-slate-400 font-semibold">{t('soil_p')}</div>
-                      <div className="text-3xl font-extrabold text-cyan-400 mt-2 font-mono">
+                    <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm text-center">
+                      <div className="text-xs text-slate-500 font-bold uppercase">{t('soil_p')}</div>
+                      <div className="text-3xl font-black text-emerald-700 mt-2 font-mono">
                         {liveSoilReading?.phosphorus !== null && liveSoilReading?.phosphorus !== undefined ? `${liveSoilReading.phosphorus} mg/kg` : '--'}
                       </div>
                       <div className="text-[11px] text-slate-400 mt-1">
@@ -1622,9 +1624,9 @@ export default function App() {
                       </div>
                     </div>
 
-                    <div className="bg-slate-800/80 border border-slate-700 rounded-xl p-4">
-                      <div className="text-xs text-slate-400 font-semibold">{t('soil_k')}</div>
-                      <div className="text-3xl font-extrabold text-cyan-400 mt-2 font-mono">
+                    <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm text-center">
+                      <div className="text-xs text-slate-500 font-bold uppercase">{t('soil_k')}</div>
+                      <div className="text-3xl font-black text-emerald-700 mt-2 font-mono">
                         {liveSoilReading?.potassium !== null && liveSoilReading?.potassium !== undefined ? `${liveSoilReading.potassium} mg/kg` : '--'}
                       </div>
                       <div className="text-[11px] text-slate-400 mt-1">
@@ -1632,9 +1634,9 @@ export default function App() {
                       </div>
                     </div>
 
-                    <div className="bg-slate-800/80 border border-slate-700 rounded-xl p-4">
-                      <div className="text-xs text-slate-400 font-semibold">{t('soil_ph')}</div>
-                      <div className="text-3xl font-extrabold text-cyan-400 mt-2 font-mono">
+                    <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm text-center">
+                      <div className="text-xs text-slate-500 font-bold uppercase">{t('soil_ph')}</div>
+                      <div className="text-3xl font-black text-emerald-700 mt-2 font-mono">
                         {liveSoilReading?.ph !== null && liveSoilReading?.ph !== undefined ? `${liveSoilReading.ph} pH` : '--'}
                       </div>
                       <div className="text-[11px] text-slate-400 mt-1">
@@ -1642,9 +1644,9 @@ export default function App() {
                       </div>
                     </div>
 
-                    <div className="bg-slate-800/80 border border-slate-700 rounded-xl p-4">
-                      <div className="text-xs text-slate-400 font-semibold">{t('soil_moisture')}</div>
-                      <div className="text-3xl font-extrabold text-cyan-400 mt-2 font-mono">
+                    <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm text-center">
+                      <div className="text-xs text-slate-500 font-bold uppercase">{t('soil_moisture')}</div>
+                      <div className="text-3xl font-black text-emerald-700 mt-2 font-mono">
                         {liveSoilReading?.moisture !== null && liveSoilReading?.moisture !== undefined ? `${liveSoilReading.moisture}%` : '--'}
                       </div>
                       <div className="text-[11px] text-slate-400 mt-1">
@@ -1652,9 +1654,9 @@ export default function App() {
                       </div>
                     </div>
 
-                    <div className="bg-slate-800/80 border border-slate-700 rounded-xl p-4">
-                      <div className="text-xs text-slate-400 font-semibold">{t('soil_temp')}</div>
-                      <div className="text-3xl font-extrabold text-cyan-400 mt-2 font-mono">
+                    <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm text-center">
+                      <div className="text-xs text-slate-500 font-bold uppercase">{t('soil_temp')}</div>
+                      <div className="text-3xl font-black text-emerald-700 mt-2 font-mono">
                         {liveSoilReading?.temperature !== null && liveSoilReading?.temperature !== undefined ? `${liveSoilReading.temperature}°C` : '--'}
                       </div>
                       <div className="text-[11px] text-slate-400 mt-1">
@@ -1670,13 +1672,13 @@ export default function App() {
               {/* ========================================================= */}
               {activeTab === 'risk' && (
                 <div className="space-y-4">
-                  <div className="bg-slate-800/60 border border-slate-700 rounded-xl p-4 flex items-center justify-between">
+                  <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm flex items-center justify-between">
                     <div className="flex items-center space-x-3">
-                      <label className="text-xs font-semibold text-slate-300">Target Field:</label>
+                      <label className="text-xs font-bold text-slate-700">Target Field:</label>
                       <select 
                         value={selectedFieldId || ''} 
                         onChange={(e) => setSelectedFieldId(Number(e.target.value))}
-                        className="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-slate-200 font-medium"
+                        className="bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 font-medium"
                       >
                         {fields.map(f => (
                           <option key={f.id} value={f.id}>{f.name} ({f.soil_type || 'General'})</option>
@@ -1687,7 +1689,7 @@ export default function App() {
                     <button
                       onClick={executeFusion}
                       disabled={isFusing}
-                      className="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center space-x-1.5"
+                      className="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center space-x-1.5 shadow"
                     >
                       {isFusing ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Zap className="w-3.5 h-3.5" />}
                       <span>Run Multi-Modal Fusion</span>
@@ -1696,30 +1698,30 @@ export default function App() {
 
                   {fusionResult ? (
                     <div className="grid grid-cols-3 gap-4">
-                      <div className="bg-slate-800/80 border border-slate-700 rounded-xl p-5 space-y-3">
-                        <div className="text-xs font-bold text-slate-400">FIELD RISK LEVEL</div>
-                        <div className="text-3xl font-black text-slate-100">{fusionResult.risk.risk_level}</div>
-                        <p className="text-xs text-slate-300">{fusionResult.risk.explanation}</p>
-                        <div className="pt-2 border-t border-slate-700 text-xs font-mono">
+                      <div className="bg-white border border-slate-200 rounded-2xl p-5 space-y-3.5 shadow-sm">
+                        <div className="text-xs font-bold text-slate-500 uppercase tracking-wider">FIELD RISK LEVEL</div>
+                        <div className="text-3xl font-black text-slate-900">{fusionResult.risk.risk_level}</div>
+                        <p className="text-xs text-slate-600 leading-relaxed">{fusionResult.risk.explanation}</p>
+                        <div className="pt-2 border-t border-slate-200 text-xs font-mono text-slate-700">
                           <div>Completeness: <b>{(fusionResult.risk.data_completeness * 100).toFixed(0)}%</b></div>
                         </div>
                       </div>
 
-                      <div className="col-span-2 bg-slate-800/60 border border-slate-700 rounded-xl p-4 space-y-2 max-h-72 overflow-y-auto pr-1">
-                        <div className="text-xs font-bold text-slate-300">EXPLAINABLE RISK EVIDENCE</div>
+                      <div className="col-span-2 bg-white border border-slate-200 rounded-2xl p-4 space-y-2.5 max-h-72 overflow-y-auto pr-1 shadow-sm">
+                        <div className="text-xs font-bold text-slate-700 uppercase tracking-wider">EXPLAINABLE RISK EVIDENCE</div>
                         {fusionResult.evidence.map((ev, idx) => (
-                          <div key={idx} className="bg-slate-900 p-2.5 rounded-lg text-xs space-y-0.5 border border-slate-800">
+                          <div key={idx} className="bg-slate-50 p-3 rounded-xl text-xs space-y-0.5 border border-slate-200">
                             <div className="flex justify-between items-center">
-                              <span className="font-bold text-slate-200">{ev.title}</span>
-                              <span className="text-[10px] font-mono text-slate-400">{ev.source}</span>
+                              <span className="font-bold text-slate-900">{ev.title}</span>
+                              <span className="text-[10px] font-mono text-slate-500 bg-white px-2 py-0.5 rounded border border-slate-200">{ev.source}</span>
                             </div>
-                            <p className="text-slate-400 text-[11px]">{ev.description}</p>
+                            <p className="text-slate-600 text-[11px] leading-relaxed">{ev.description}</p>
                           </div>
                         ))}
                       </div>
                     </div>
                   ) : (
-                    <div className="bg-slate-800/40 border border-slate-700 rounded-xl p-8 text-center text-slate-500">
+                    <div className="bg-white border border-slate-200 rounded-2xl p-8 text-center text-slate-400 shadow-sm">
                       Click <b>Run Multi-Modal Fusion</b> to assess multi-modal crop and soil risk.
                     </div>
                   )}
@@ -1731,16 +1733,16 @@ export default function App() {
               {/* ========================================================= */}
               {activeTab === 'advisory' && (
                 <div className="space-y-4">
-                  <div className="flex justify-between items-center bg-slate-800/60 border border-slate-700 rounded-xl p-4">
+                  <div className="flex justify-between items-center bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
                     <div>
-                      <div className="font-bold text-sm text-slate-200">Personalized Agronomic Advisories</div>
-                      <div className="text-xs text-slate-400">Actionable, non-toxic recommendations for {selectedField?.name || 'Selected Field'}</div>
+                      <div className="font-bold text-sm text-slate-900">Personalized Agronomic Advisories</div>
+                      <div className="text-xs text-slate-500">Actionable, non-toxic recommendations for {selectedField?.name || 'Selected Field'}</div>
                     </div>
 
                     <button
                       onClick={() => selectedFieldId && loadAdvisories(selectedFieldId)}
                       disabled={isLoadingAdvisories}
-                      className="bg-slate-700 hover:bg-slate-600 text-slate-200 px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center space-x-1"
+                      className="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center space-x-1 border border-slate-300"
                     >
                       <RefreshCw className={`w-3.5 h-3.5 ${isLoadingAdvisories ? 'animate-spin' : ''}`} />
                       <span>{t('btn_refresh')}</span>
@@ -1750,26 +1752,26 @@ export default function App() {
                   {advisoryList.length > 0 ? (
                     <div className="space-y-3 max-h-96 overflow-y-auto pr-1">
                       {advisoryList.map((adv, idx) => (
-                        <div key={idx} className="bg-slate-800/80 border border-slate-700 rounded-xl p-4 space-y-2">
+                        <div key={idx} className="bg-white border border-slate-200 rounded-2xl p-4 space-y-2.5 shadow-sm">
                           <div className="flex justify-between items-center">
-                            <span className={`px-2.5 py-0.5 rounded text-[10px] font-extrabold ${
-                              adv.priority === 'URGENT' ? 'bg-rose-950 text-rose-300 border border-rose-800' :
-                              adv.priority === 'HIGH' ? 'bg-amber-950 text-amber-300 border border-amber-800' :
-                              'bg-emerald-950 text-emerald-300 border border-emerald-800'
+                            <span className={`px-2.5 py-0.5 rounded text-[10px] font-black tracking-wider ${
+                              adv.priority === 'URGENT' ? 'bg-rose-100 text-rose-800 border border-rose-300' :
+                              adv.priority === 'HIGH' ? 'bg-amber-100 text-amber-800 border border-amber-300' :
+                              'bg-emerald-100 text-emerald-800 border border-emerald-300'
                             }`}>
                               {adv.priority} PRIORITY
                             </span>
-                            <span className="text-xs font-bold text-slate-200">{adv.title}</span>
+                            <span className="text-xs font-bold text-slate-900">{adv.title}</span>
                           </div>
-                          <div className="text-xs text-slate-300"><b>Observation:</b> {adv.message}</div>
-                          <div className="bg-slate-900 p-2.5 rounded-lg border border-slate-800 text-xs text-emerald-300">
+                          <div className="text-xs text-slate-700"><b>Observation:</b> {adv.message}</div>
+                          <div className="bg-emerald-50 p-3 rounded-xl border border-emerald-200 text-xs text-emerald-950 font-medium">
                             <b>Recommended Action:</b> {adv.recommended_action}
                           </div>
                         </div>
                       ))}
                     </div>
                   ) : (
-                    <div className="bg-slate-800/40 border border-slate-700 rounded-xl p-8 text-center text-slate-500">
+                    <div className="bg-white border border-slate-200 rounded-2xl p-8 text-center text-slate-400 shadow-sm">
                       No active advisories found. Run Field Check to generate guidance.
                     </div>
                   )}
@@ -1781,13 +1783,13 @@ export default function App() {
               {/* ========================================================= */}
               {activeTab === 'history' && (
                 <div className="space-y-4">
-                  <div className="flex justify-between items-center bg-slate-800/60 border border-slate-700 rounded-xl p-3.5">
+                  <div className="flex justify-between items-center bg-white border border-slate-200 rounded-2xl p-3.5 shadow-sm">
                     <div className="flex items-center space-x-3">
-                      <label className="text-xs font-semibold text-slate-300">Target Field:</label>
+                      <label className="text-xs font-bold text-slate-700">Target Field:</label>
                       <select 
                         value={selectedFieldId || ''} 
                         onChange={(e) => setSelectedFieldId(Number(e.target.value))}
-                        className="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-slate-200 font-medium"
+                        className="bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 font-medium"
                       >
                         {fields.map(f => (
                           <option key={f.id} value={f.id}>{f.name}</option>
@@ -1796,13 +1798,13 @@ export default function App() {
                     </div>
 
                     <div className="flex items-center space-x-2">
-                      <div className="flex bg-slate-900 border border-slate-700 rounded-lg p-0.5 text-[11px] font-bold">
+                      <div className="flex bg-slate-100 border border-slate-200 rounded-xl p-0.5 text-[11px] font-bold">
                         {(['ALL', 'SCAN', 'SOIL', 'RISK', 'ADVISORY'] as const).map(flt => (
                           <button
                             key={flt}
                             onClick={() => setHistoryFilter(flt)}
-                            className={`px-2.5 py-1 rounded-md transition ${
-                              historyFilter === flt ? 'bg-emerald-600 text-white shadow' : 'text-slate-400 hover:text-slate-200'
+                            className={`px-2.5 py-1 rounded-lg transition ${
+                              historyFilter === flt ? 'bg-emerald-600 text-white shadow-sm' : 'text-slate-600 hover:text-slate-900'
                             }`}
                           >
                             {flt}
@@ -1812,7 +1814,7 @@ export default function App() {
 
                       <button
                         onClick={() => selectedFieldId && loadHistory(selectedFieldId)}
-                        className="bg-slate-700 hover:bg-slate-600 text-slate-200 px-3.5 py-1.5 rounded-lg text-xs font-bold flex items-center space-x-1"
+                        className="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3.5 py-1.5 rounded-lg text-xs font-bold flex items-center space-x-1 border border-slate-300"
                       >
                         <RefreshCw className="w-3.5 h-3.5" />
                         <span>{t('btn_refresh')}</span>
@@ -1834,33 +1836,33 @@ export default function App() {
                           return true;
                         })
                         .map((item, idx) => (
-                        <div key={idx} className="bg-slate-800/70 border border-slate-700 rounded-lg p-3 flex items-center justify-between text-xs">
+                        <div key={idx} className="bg-white border border-slate-200 rounded-xl p-3.5 flex items-center justify-between text-xs shadow-sm">
                           <div className="flex items-center space-x-3">
                             {item.type === 'SCAN' ? (
-                              <div className="w-8 h-8 rounded-full bg-emerald-950 border border-emerald-800 flex items-center justify-center text-emerald-400">
+                              <div className="w-8 h-8 rounded-full bg-emerald-100 border border-emerald-300 flex items-center justify-center text-emerald-700">
                                 <Camera className="w-4 h-4" />
                               </div>
                             ) : item.type === 'SOIL_READING' ? (
-                              <div className="w-8 h-8 rounded-full bg-cyan-950 border border-cyan-800 flex items-center justify-center text-cyan-400">
+                              <div className="w-8 h-8 rounded-full bg-teal-100 border border-teal-300 flex items-center justify-center text-teal-700">
                                 <Droplets className="w-4 h-4" />
                               </div>
                             ) : item.type === 'RISK_ASSESSMENT' ? (
-                              <div className="w-8 h-8 rounded-full bg-purple-950 border border-purple-800 flex items-center justify-center text-purple-400">
+                              <div className="w-8 h-8 rounded-full bg-purple-100 border border-purple-300 flex items-center justify-center text-purple-700">
                                 <ShieldAlert className="w-4 h-4" />
                               </div>
                             ) : (
-                              <div className="w-8 h-8 rounded-full bg-amber-950 border border-amber-800 flex items-center justify-center text-amber-400">
+                              <div className="w-8 h-8 rounded-full bg-amber-100 border border-amber-300 flex items-center justify-center text-amber-700">
                                 <FileText className="w-4 h-4" />
                               </div>
                             )}
                             <div>
-                              <div className="font-bold text-slate-200">
+                              <div className="font-bold text-slate-900">
                                 {item.type === 'SCAN' ? `Crop Scan: ${item.prediction}` : 
                                  item.type === 'SOIL_READING' ? `Soil Reading (${item.sensor_status})` :
                                  item.type === 'RISK_ASSESSMENT' ? `Risk Assessment: ${item.disease_risk || 'CALCULATED'}` :
                                  `Advisory: ${item.title}`}
                               </div>
-                              <div className="text-[11px] text-slate-400 flex items-center space-x-2 mt-0.5">
+                              <div className="text-[11px] text-slate-500 flex items-center space-x-2 mt-0.5">
                                 <Clock className="w-3 h-3" />
                                 <span>{new Date(item.timestamp).toLocaleString()}</span>
                               </div>
@@ -1869,18 +1871,18 @@ export default function App() {
 
                           <div className="text-right font-mono text-xs">
                             {item.type === 'SCAN' ? (
-                              <span className="text-emerald-400 font-bold">{(item.confidence * 100).toFixed(0)}% Conf</span>
+                              <span className="text-emerald-700 font-bold">{(item.confidence * 100).toFixed(0)}% Conf</span>
                             ) : item.type === 'SOIL_READING' ? (
-                              <span className="text-cyan-400">{item.moisture !== null ? `${item.moisture}% Moist` : 'N/A'}</span>
+                              <span className="text-teal-700 font-bold">{item.moisture !== null ? `${item.moisture}% Moist` : 'N/A'}</span>
                             ) : (
-                              <span className="text-slate-400">{item.severity || item.status || 'RECORDED'}</span>
+                              <span className="text-slate-600 font-medium">{item.severity || item.status || 'RECORDED'}</span>
                             )}
                           </div>
                         </div>
                       ))}
                     </div>
                   ) : (
-                    <div className="p-8 text-center text-slate-400 border border-dashed border-slate-800 rounded-xl text-xs">
+                    <div className="p-8 text-center text-slate-400 border border-dashed border-slate-300 rounded-2xl text-xs bg-white">
                       No records saved yet for this field in local SQLite.
                     </div>
                   )}
@@ -1893,31 +1895,31 @@ export default function App() {
               {activeTab === 'diagnostics' && (
                 <div className="space-y-4">
                   {/* Host Platform & Board Architecture */}
-                  <div className="bg-slate-800/60 border border-slate-700 rounded-xl p-4 space-y-2">
+                  <div className="bg-white border border-slate-200 rounded-2xl p-5 space-y-3 shadow-sm">
                     <div className="flex justify-between items-center">
-                      <div className="text-sm font-bold text-slate-200">Host Platform & Architecture</div>
-                      <span className="text-[11px] font-mono text-cyan-400 bg-slate-900 px-2.5 py-0.5 rounded border border-slate-800">
+                      <div className="text-sm font-bold text-slate-900">Host Platform & Architecture</div>
+                      <span className="text-[11px] font-mono text-emerald-800 bg-emerald-50 px-2.5 py-0.5 rounded border border-emerald-200 font-bold">
                         {deviceStatus?.platform?.board_model || 'Edge Host'}
                       </span>
                     </div>
-                    <div className="grid grid-cols-4 gap-3 text-xs font-mono text-slate-300">
-                      <div className="bg-slate-900/80 p-2.5 rounded-lg border border-slate-800">
-                        <div className="text-[10px] text-slate-500 uppercase">OS & Kernel</div>
-                        <div className="font-bold text-slate-200">{deviceStatus?.platform?.os_name} {deviceStatus?.platform?.architecture}</div>
+                    <div className="grid grid-cols-4 gap-3 text-xs font-mono text-slate-800">
+                      <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                        <div className="text-[10px] text-slate-500 uppercase font-sans font-bold">OS & Kernel</div>
+                        <div className="font-bold text-slate-900 mt-0.5">{deviceStatus?.platform?.os_name} {deviceStatus?.platform?.architecture}</div>
                       </div>
-                      <div className="bg-slate-900/80 p-2.5 rounded-lg border border-slate-800">
-                        <div className="text-[10px] text-slate-500 uppercase">CPU Temperature</div>
-                        <div className="font-bold text-amber-400">
+                      <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                        <div className="text-[10px] text-slate-500 uppercase font-sans font-bold">CPU Temperature</div>
+                        <div className="font-bold text-amber-700 mt-0.5">
                           {deviceStatus?.cpu_temperature_celsius !== null && deviceStatus?.cpu_temperature_celsius !== undefined ? `${deviceStatus.cpu_temperature_celsius}°C` : 'Telemetry N/A'}
                         </div>
                       </div>
-                      <div className="bg-slate-900/80 p-2.5 rounded-lg border border-slate-800">
-                        <div className="text-[10px] text-slate-500 uppercase">Local Storage</div>
-                        <div className="font-bold text-emerald-400">{deviceStatus?.storage_free_gb || '--'} GB Free</div>
+                      <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                        <div className="text-[10px] text-slate-500 uppercase font-sans font-bold">Local Storage</div>
+                        <div className="font-bold text-emerald-700 mt-0.5">{deviceStatus?.storage_free_gb || '--'} GB Free</div>
                       </div>
-                      <div className="bg-slate-900/80 p-2.5 rounded-lg border border-slate-800">
-                        <div className="text-[10px] text-slate-500 uppercase">Battery / PMIC</div>
-                        <div className="font-bold text-slate-300">
+                      <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                        <div className="text-[10px] text-slate-500 uppercase font-sans font-bold">Battery / PMIC</div>
+                        <div className="font-bold text-slate-900 mt-0.5">
                           {deviceStatus?.battery?.percent !== null && deviceStatus?.battery?.percent !== undefined ? `${deviceStatus.battery.percent}%` : (deviceStatus?.demo_mode ? '88.5% (Demo)' : 'Unavailable')}
                         </div>
                       </div>
@@ -1925,60 +1927,60 @@ export default function App() {
                   </div>
 
                   {/* Subsystems Matrix */}
-                  <div className="bg-slate-800/60 border border-slate-700 rounded-xl p-4">
-                    <div className="text-sm font-bold text-slate-200 mb-3">Subsystems Diagnostic Matrix</div>
+                  <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+                    <div className="text-sm font-bold text-slate-900 mb-3">Subsystems Diagnostic Matrix</div>
                     <div className="grid grid-cols-2 gap-3 text-xs">
-                      <div className="p-3.5 bg-slate-900 rounded-xl border border-slate-800 space-y-1">
-                        <div className="font-bold text-slate-200 flex justify-between">
+                      <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
+                        <div className="font-bold text-slate-900 flex justify-between">
                           <span>Camera Subsystem</span>
-                          <Camera className="w-4 h-4 text-slate-400" />
+                          <Camera className="w-4 h-4 text-slate-500" />
                         </div>
-                        <div className="text-slate-400">Driver: {deviceStatus?.subsystems.camera.is_mock ? 'MockCamera (Demo)' : 'OpenCV / V4L2'}</div>
-                        <div className="text-slate-400">Status: <b className={deviceStatus?.camera_status_label === 'READY' ? 'text-emerald-400' : 'text-amber-400'}>{deviceStatus?.subsystems.camera.status}</b></div>
+                        <div className="text-slate-600">Driver: {deviceStatus?.subsystems.camera.is_mock ? 'MockCamera (Demo)' : 'OpenCV / V4L2'}</div>
+                        <div className="text-slate-600">Status: <b className={deviceStatus?.camera_status_label === 'READY' ? 'text-emerald-700' : 'text-amber-700'}>{deviceStatus?.subsystems.camera.status}</b></div>
                       </div>
 
-                      <div className="p-3.5 bg-slate-900 rounded-xl border border-slate-800 space-y-1">
-                        <div className="font-bold text-slate-200 flex justify-between">
+                      <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
+                        <div className="font-bold text-slate-900 flex justify-between">
                           <span>6-Param RS485 Modbus</span>
-                          <Droplets className="w-4 h-4 text-cyan-400" />
+                          <Droplets className="w-4 h-4 text-teal-600" />
                         </div>
-                        <div className="text-slate-400">Driver: {deviceStatus?.subsystems.soil_sensor.is_mock ? 'MockSoil (Demo)' : 'RS485 Serial'}</div>
-                        <div className="text-slate-400">Status: <b className={deviceStatus?.soil_status_label === 'CONNECTED' ? 'text-emerald-400' : 'text-amber-400'}>{deviceStatus?.subsystems.soil_sensor.status}</b></div>
+                        <div className="text-slate-600">Driver: {deviceStatus?.subsystems.soil_sensor.is_mock ? 'MockSoil (Demo)' : 'RS485 Serial'}</div>
+                        <div className="text-slate-600">Status: <b className={deviceStatus?.soil_status_label === 'CONNECTED' ? 'text-emerald-700' : 'text-amber-700'}>{deviceStatus?.subsystems.soil_sensor.status}</b></div>
                       </div>
 
-                      <div className="p-3.5 bg-slate-900 rounded-xl border border-slate-800 space-y-1">
-                        <div className="font-bold text-slate-200 flex justify-between">
+                      <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
+                        <div className="font-bold text-slate-900 flex justify-between">
                           <span>AI Inference Engine</span>
-                          <Cpu className="w-4 h-4 text-purple-400" />
+                          <Cpu className="w-4 h-4 text-purple-600" />
                         </div>
-                        <div className="text-slate-400">Accelerator: {visionStatus?.accelerator || 'CPU'}</div>
-                        <div className="text-slate-400">Model: {visionStatus?.model_name || 'TEJAS-DemoVision'}</div>
+                        <div className="text-slate-600">Accelerator: {visionStatus?.accelerator || 'CPU'}</div>
+                        <div className="text-slate-600">Model: {visionStatus?.model_name || 'TEJAS-DemoVision'}</div>
                       </div>
 
-                      <div className="p-3.5 bg-slate-900 rounded-xl border border-slate-800 space-y-1">
-                        <div className="font-bold text-slate-200 flex justify-between">
+                      <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
+                        <div className="font-bold text-slate-900 flex justify-between">
                           <span>Offline SQLite Database</span>
-                          <HistoryIcon className="w-4 h-4 text-emerald-400" />
+                          <HistoryIcon className="w-4 h-4 text-emerald-600" />
                         </div>
-                        <div className="text-slate-400">Engine: SQLAlchemy + SQLite PRAGMA FK</div>
-                        <div className="text-slate-400">Status: <b className="text-emerald-400">{deviceStatus?.subsystems.database.status}</b></div>
+                        <div className="text-slate-600">Engine: SQLAlchemy + SQLite PRAGMA FK</div>
+                        <div className="text-slate-600">Status: <b className="text-emerald-700">{deviceStatus?.subsystems.database.status}</b></div>
                       </div>
                     </div>
                   </div>
 
                   {/* Detected Serial & RS485 Interfaces */}
-                  <div className="bg-slate-800/60 border border-slate-700 rounded-xl p-4 space-y-2">
-                    <div className="text-sm font-bold text-slate-200">Detected Serial & RS485 Interfaces</div>
+                  <div className="bg-white border border-slate-200 rounded-2xl p-5 space-y-2.5 shadow-sm">
+                    <div className="text-sm font-bold text-slate-900">Detected Serial & RS485 Interfaces</div>
                     {deviceStatus?.serial_ports && deviceStatus.serial_ports.length > 0 ? (
                       <div className="space-y-1.5 max-h-36 overflow-y-auto pr-1">
                         {deviceStatus.serial_ports.map((p, idx) => (
-                          <div key={idx} className="bg-slate-900/90 border border-slate-800 p-2 rounded-lg flex justify-between items-center text-xs">
+                          <div key={idx} className="bg-slate-50 border border-slate-200 p-2.5 rounded-xl flex justify-between items-center text-xs">
                             <div>
-                              <span className="font-mono font-bold text-cyan-400">{p.device}</span>
-                              <span className="text-slate-400 text-[11px] ml-2">{p.description}</span>
+                              <span className="font-mono font-bold text-emerald-800">{p.device}</span>
+                              <span className="text-slate-600 text-[11px] ml-2">{p.description}</span>
                             </div>
                             {p.is_usb_rs485_candidate && (
-                              <span className="text-[10px] font-mono bg-cyan-950 text-cyan-300 px-2 py-0.5 rounded border border-cyan-800">
+                              <span className="text-[10px] font-mono bg-teal-50 text-teal-800 px-2 py-0.5 rounded border border-teal-200 font-bold">
                                 USB-RS485 Candidate
                               </span>
                             )}
@@ -1986,23 +1988,23 @@ export default function App() {
                         ))}
                       </div>
                     ) : (
-                      <div className="text-xs text-slate-500 p-2 bg-slate-900/50 rounded-lg">
+                      <div className="text-xs text-slate-500 p-3 bg-slate-50 border border-slate-200 rounded-xl">
                         No physical serial or USB-RS485 adapters currently attached.
                       </div>
                     )}
                   </div>
 
                   {/* Automated Startup Self-Test Panel */}
-                  <div className="bg-slate-800/60 border border-slate-700 rounded-xl p-4 space-y-3">
+                  <div className="bg-white border border-slate-200 rounded-2xl p-5 space-y-3.5 shadow-sm">
                     <div className="flex justify-between items-center">
                       <div>
-                        <div className="text-sm font-bold text-slate-200">Hardware & Subsystem Self-Test</div>
-                        <div className="text-xs text-slate-400">Verifies local DB, storage, camera, soil probe, and AI engine</div>
+                        <div className="text-sm font-bold text-slate-900">Hardware & Subsystem Self-Test</div>
+                        <div className="text-xs text-slate-500">Verifies local DB, storage, camera, soil probe, and AI engine</div>
                       </div>
                       <button
                         onClick={handleRunSelfTest}
                         disabled={isRunningSelfTest}
-                        className="bg-purple-600 hover:bg-purple-500 disabled:bg-slate-700 text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center space-x-1.5 shadow"
+                        className="bg-purple-600 hover:bg-purple-500 disabled:bg-slate-300 disabled:text-slate-500 text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center space-x-1.5 shadow"
                       >
                         {isRunningSelfTest ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Activity className="w-3.5 h-3.5" />}
                         <span>{isRunningSelfTest ? 'Running Self-Test...' : 'Run Hardware Self-Test'}</span>
@@ -2010,13 +2012,13 @@ export default function App() {
                     </div>
 
                     {selfTestResult && (
-                      <div className="space-y-3 pt-2 border-t border-slate-700">
-                        <div className="flex justify-between items-center bg-slate-900 p-3 rounded-xl border border-slate-800">
-                          <span className="text-xs font-bold text-slate-300">OVERALL DEVICE STATUS:</span>
+                      <div className="space-y-3 pt-3 border-t border-slate-200">
+                        <div className="flex justify-between items-center bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+                          <span className="text-xs font-bold text-slate-700">OVERALL DEVICE STATUS:</span>
                           <span className={`px-3 py-1 rounded-lg text-xs font-black ${
-                            selfTestResult.overall_status === 'DEVICE READY' ? 'bg-emerald-950 text-emerald-300 border border-emerald-800' :
-                            selfTestResult.overall_status === 'DEVICE READY WITH WARNINGS' ? 'bg-amber-950 text-amber-300 border border-amber-800' :
-                            'bg-rose-950 text-rose-300 border border-rose-800'
+                            selfTestResult.overall_status === 'DEVICE READY' ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' :
+                            selfTestResult.overall_status === 'DEVICE READY WITH WARNINGS' ? 'bg-amber-100 text-amber-800 border border-amber-300' :
+                            'bg-rose-100 text-rose-800 border border-rose-300'
                           }`}>
                             {selfTestResult.overall_status}
                           </span>
@@ -2024,18 +2026,18 @@ export default function App() {
 
                         <div className="grid grid-cols-2 gap-2 text-xs">
                           {selfTestResult.items.map((item, idx) => (
-                            <div key={idx} className="bg-slate-900/90 border border-slate-800 p-2.5 rounded-lg space-y-1">
+                            <div key={idx} className="bg-slate-50 border border-slate-200 p-3 rounded-xl space-y-1">
                               <div className="flex justify-between items-center">
-                                <span className="font-bold text-slate-200">{item.subsystem}</span>
-                                <span className={`text-[10px] font-extrabold px-2 py-0.5 rounded ${
-                                  item.status === 'PASSED' ? 'bg-emerald-950 text-emerald-300' :
-                                  item.status === 'WARNING' ? 'bg-amber-950 text-amber-300' :
-                                  'bg-rose-950 text-rose-300'
+                                <span className="font-bold text-slate-900">{item.subsystem}</span>
+                                <span className={`text-[10px] font-black px-2 py-0.5 rounded ${
+                                  item.status === 'PASSED' ? 'bg-emerald-100 text-emerald-800' :
+                                  item.status === 'WARNING' ? 'bg-amber-100 text-amber-800' :
+                                  'bg-rose-100 text-rose-800'
                                 }`}>
                                   {item.status} {item.latency_ms !== null && item.latency_ms !== undefined ? `(${item.latency_ms}ms)` : ''}
                                 </span>
                               </div>
-                              <p className="text-[11px] text-slate-400">{item.message}</p>
+                              <p className="text-[11px] text-slate-600">{item.message}</p>
                               {item.details && (
                                 <p className="text-[10px] font-mono text-slate-500">{item.details}</p>
                               )}
@@ -2047,36 +2049,36 @@ export default function App() {
                   </div>
 
                   {/* Phase 8: Active AI Model Registry & Real Profiler */}
-                  <div className="bg-slate-800/60 border border-slate-700 rounded-xl p-4 space-y-3">
+                  <div className="bg-white border border-slate-200 rounded-2xl p-5 space-y-3.5 shadow-sm">
                     <div className="flex justify-between items-center">
                       <div>
-                        <div className="text-sm font-bold text-slate-200">AI Model Registry & Validation Status</div>
-                        <div className="text-xs text-slate-400">Zero AI Hallucination: Model hashes verified via SHA-256</div>
+                        <div className="text-sm font-bold text-slate-900">AI Model Registry & Validation Status</div>
+                        <div className="text-xs text-slate-500">Zero AI Hallucination: Model hashes verified via SHA-256</div>
                       </div>
-                      <span className={`text-[10px] font-extrabold px-2.5 py-1 rounded border ${
+                      <span className={`text-[10px] font-black px-2.5 py-1 rounded border ${
                         modelRegistry?.active_model?.validation_status === 'VALIDATED' 
-                          ? 'bg-emerald-950 text-emerald-300 border-emerald-800' 
-                          : 'bg-amber-950 text-amber-300 border-amber-800'
+                          ? 'bg-emerald-100 text-emerald-800 border-emerald-300' 
+                          : 'bg-amber-100 text-amber-800 border-amber-300'
                       }`}>
                         {modelRegistry?.active_model?.validation_status || 'NOT YET VALIDATED'}
                       </span>
                     </div>
 
                     <div className="grid grid-cols-2 gap-3 text-xs">
-                      <div className="bg-slate-900/90 border border-slate-800 p-3 rounded-xl space-y-1.5 font-mono">
+                      <div className="bg-slate-50 border border-slate-200 p-3.5 rounded-xl space-y-1.5 font-mono text-slate-800">
                         <div className="text-[10px] text-slate-500 uppercase font-sans font-bold">Active Model Details</div>
-                        <div>Name: <b className="text-slate-200">{modelRegistry?.active_model?.model_name || visionStatus?.model_name || 'DemoVision'}</b></div>
-                        <div>Version: <b className="text-slate-200">{modelRegistry?.active_model?.model_version || '0.1.0'}</b></div>
-                        <div>Status: <b className="text-cyan-400">{modelRegistry?.active_model?.model_status || 'DEMO_MODEL'}</b></div>
-                        <div className="truncate text-[11px]">SHA-256: <b className="text-purple-300">{modelRegistry?.active_model?.model_hash || 'demo_hash'}</b></div>
+                        <div>Name: <b className="text-slate-900">{modelRegistry?.active_model?.model_name || visionStatus?.model_name || 'DemoVision'}</b></div>
+                        <div>Version: <b className="text-slate-900">{modelRegistry?.active_model?.model_version || '0.1.0'}</b></div>
+                        <div>Status: <b className="text-teal-700">{modelRegistry?.active_model?.model_status || 'DEMO_MODEL'}</b></div>
+                        <div className="truncate text-[11px]">SHA-256: <b className="text-purple-700">{modelRegistry?.active_model?.model_hash || 'demo_hash'}</b></div>
                       </div>
 
-                      <div className="bg-slate-900/90 border border-slate-800 p-3 rounded-xl space-y-1.5 font-mono">
+                      <div className="bg-slate-50 border border-slate-200 p-3.5 rounded-xl space-y-1.5 font-mono text-slate-800">
                         <div className="text-[10px] text-slate-500 uppercase font-sans font-bold">Latency Profiling (Monotonic)</div>
-                        <div>Avg Inference: <b className="text-emerald-400">{visionStatus?.profiling_summary?.avg_inference_ms !== null && visionStatus?.profiling_summary?.avg_inference_ms !== undefined ? `${visionStatus.profiling_summary.avg_inference_ms} ms` : 'N/A'}</b></div>
-                        <div>Avg Total Pipeline: <b className="text-cyan-400">{visionStatus?.profiling_summary?.avg_total_ms !== null && visionStatus?.profiling_summary?.avg_total_ms !== undefined ? `${visionStatus.profiling_summary.avg_total_ms} ms` : 'N/A'}</b></div>
-                        <div>Measured Inferences: <b className="text-slate-200">{visionStatus?.profiling_summary?.total_inferences_measured || 0}</b></div>
-                        <div>Accelerator: <b className="text-purple-300">{visionStatus?.accelerator || 'CPU'}</b></div>
+                        <div>Avg Inference: <b className="text-emerald-700">{visionStatus?.profiling_summary?.avg_inference_ms !== null && visionStatus?.profiling_summary?.avg_inference_ms !== undefined ? `${visionStatus.profiling_summary.avg_inference_ms} ms` : 'N/A'}</b></div>
+                        <div>Avg Total Pipeline: <b className="text-teal-700">{visionStatus?.profiling_summary?.avg_total_ms !== null && visionStatus?.profiling_summary?.avg_total_ms !== undefined ? `${visionStatus.profiling_summary.avg_total_ms} ms` : 'N/A'}</b></div>
+                        <div>Measured Inferences: <b className="text-slate-900">{visionStatus?.profiling_summary?.total_inferences_measured || 0}</b></div>
+                        <div>Accelerator: <b className="text-purple-700">{visionStatus?.accelerator || 'CPU'}</b></div>
                       </div>
                     </div>
                   </div>
@@ -2087,13 +2089,13 @@ export default function App() {
               {/* TAB 10: SETTINGS                                          */}
               {/* ========================================================= */}
               {activeTab === 'settings' && (
-                <div className="bg-slate-800/60 border border-slate-700 rounded-xl p-5 text-xs space-y-3">
-                  <div className="font-bold text-slate-200 text-sm">System Runtime Settings</div>
-                  <div className="space-y-2 text-slate-300 font-mono">
-                    <div>Operation Mode: <b className="text-amber-400">{deviceStatus?.demo_mode ? 'DEMO_MODE=true' : 'REAL HARDWARE'}</b></div>
-                    <div>Confidence Threshold: <b className="text-emerald-400">{((visionStatus?.confidence_threshold || 0.70) * 100).toFixed(0)}%</b></div>
-                    <div>Zero Hardware Hallucination: <b className="text-emerald-400">ENFORCED (Strict Nullability)</b></div>
-                    <div>Database: <b className="text-slate-400">data/krishidrishti.db</b></div>
+                <div className="bg-white border border-slate-200 rounded-2xl p-6 text-xs space-y-3.5 shadow-sm">
+                  <div className="font-bold text-slate-900 text-sm">System Runtime Settings</div>
+                  <div className="space-y-2 text-slate-700 font-mono">
+                    <div>Operation Mode: <b className="text-amber-700">{deviceStatus?.demo_mode ? 'DEMO_MODE=true' : 'REAL HARDWARE'}</b></div>
+                    <div>Confidence Threshold: <b className="text-emerald-700">{((visionStatus?.confidence_threshold || 0.70) * 100).toFixed(0)}%</b></div>
+                    <div>Zero Hardware Hallucination: <b className="text-emerald-700">ENFORCED (Strict Nullability)</b></div>
+                    <div>Database: <b className="text-slate-500">data/krishidrishti.db</b></div>
                   </div>
                 </div>
               )}
@@ -2101,7 +2103,7 @@ export default function App() {
           </div>
 
           {/* Touch-First Rugged Footer */}
-          <div className="pt-3.5 border-t border-slate-800 flex justify-between items-center text-[11px] text-slate-500 shrink-0">
+          <div className="pt-3.5 border-t border-slate-200 flex justify-between items-center text-[11px] text-slate-500 shrink-0">
             <div>TEJAS &bull; Smart India Hackathon 2026 Prototype</div>
             <div>Offline Edge System &bull; Version 1.0.0</div>
           </div>
@@ -2112,34 +2114,34 @@ export default function App() {
       {/* ADD FIELD MODAL DIALOG                                        */}
       {/* ------------------------------------------------------------- */}
       {showAddFieldModal && (
-        <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-slate-900 border-2 border-slate-700 rounded-2xl p-6 w-full max-w-md shadow-2xl space-y-4">
+        <div className="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white border border-slate-200 rounded-2xl p-6 w-full max-w-md shadow-2xl space-y-4 text-slate-800">
             <div className="flex justify-between items-center">
-              <h3 className="text-lg font-bold text-slate-100">{t('btn_add_field')}</h3>
-              <button onClick={() => setShowAddFieldModal(false)} className="text-slate-400 hover:text-white">
+              <h3 className="text-lg font-bold text-slate-900">{t('btn_add_field')}</h3>
+              <button onClick={() => setShowAddFieldModal(false)} className="text-slate-400 hover:text-slate-600">
                 <XCircle className="w-5 h-5" />
               </button>
             </div>
 
             <form onSubmit={handleCreateField} className="space-y-3.5">
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">Field / Plot Name:</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Field / Plot Name:</label>
                 <input 
                   type="text" 
                   required
                   placeholder="e.g. North Tomato Sector"
                   value={newFieldName}
                   onChange={(e) => setNewFieldName(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-xs text-slate-100 focus:outline-none focus:border-emerald-500"
+                  className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2 text-xs text-slate-900 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">Soil Type:</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Soil Type:</label>
                 <select 
                   value={newFieldSoilType}
                   onChange={(e) => setNewFieldSoilType(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-xs text-slate-100 focus:outline-none focus:border-emerald-500"
+                  className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2 text-xs text-slate-900 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
                 >
                   <option value="Black Cotton">Black Cotton Soil (Regur)</option>
                   <option value="Loamy">Loamy Soil</option>
@@ -2150,22 +2152,22 @@ export default function App() {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">Area (Acres):</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Area (Acres):</label>
                 <input 
                   type="number" 
                   step="0.1"
                   min="0.1"
                   value={newFieldArea}
                   onChange={(e) => setNewFieldArea(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-xs text-slate-100 focus:outline-none focus:border-emerald-500"
+                  className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2 text-xs text-slate-900 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
                 />
               </div>
 
-              <div className="flex justify-end space-x-2.5 pt-2">
+              <div className="flex justify-end space-x-2.5 pt-2 border-t border-slate-100">
                 <button 
                   type="button"
                   onClick={() => setShowAddFieldModal(false)}
-                  className="px-4 py-2 rounded-xl text-xs font-bold text-slate-400 hover:bg-slate-800"
+                  className="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-100"
                 >
                   Cancel
                 </button>
@@ -2173,7 +2175,7 @@ export default function App() {
                 <button 
                   type="submit"
                   disabled={isCreatingField || !newFieldName.trim()}
-                  className="bg-emerald-600 hover:bg-emerald-500 text-white px-5 py-2 rounded-xl text-xs font-bold flex items-center space-x-1.5"
+                  className="bg-emerald-600 hover:bg-emerald-500 text-white px-5 py-2 rounded-xl text-xs font-bold flex items-center space-x-1.5 shadow"
                 >
                   {isCreatingField ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : null}
                   <span>Save Field</span>
