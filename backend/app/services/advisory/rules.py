@@ -45,13 +45,13 @@ class AdvisoryRules:
         # 2. Vision Pathology Advisories
         if vision and vision.status == "accepted":
             pred_low = vision.prediction.lower()
-            if "late blight" in pred_low or "blast" in pred_low:
+            if "late blight" in pred_low or "blast" in pred_low or "mosaic" in pred_low:
                 advisories.append(FarmerAdvisoryItem(
                     advisory_id="ADV_PATHOLOGY_CRITICAL",
                     priority="URGENT",
                     title=f"Pathology Alert: {vision.prediction}",
                     message=f"High-severity crop disease '{vision.prediction}' identified on leaf sample.",
-                    recommended_action="Isolate affected foliage, inspect surrounding plants for water-soaked lesions, avoid overhead irrigation, and consult local Krishi Vigyan Kendra (KVK) or extension officer.",
+                    recommended_action="Isolate affected foliage, inspect surrounding plants for lesions, avoid overhead irrigation, and consult local Krishi Vigyan Kendra (KVK) or extension officer.",
                     reason=f"AI vision detected {vision.prediction} with {int(vision.confidence*100)}% confidence.",
                     source="AI_OBSERVATION",
                     confidence=vision.confidence,
@@ -59,13 +59,13 @@ class AdvisoryRules:
                     is_demo=is_demo,
                     category="Plant Protection"
                 ))
-            elif "early blight" in pred_low or "rust" in pred_low or "blight" in pred_low:
+            elif any(k in pred_low for k in ["blight", "spot", "mold", "virus", "mite", "rust", "curl", "septoria", "target"]):
                 advisories.append(FarmerAdvisoryItem(
                     advisory_id="ADV_PATHOLOGY_HIGH",
                     priority="HIGH",
                     title=f"Disease Management: {vision.prediction}",
                     message=f"Leaf symptoms indicate presence of {vision.prediction}.",
-                    recommended_action="Prune lower infected leaves showing concentric rings, improve row spacing for better aeration, and monitor daily progression.",
+                    recommended_action="Prune lower infected leaves showing lesions, improve row spacing for better aeration, avoid overhead wetting, and monitor daily progression.",
                     reason=f"AI vision identified symptoms with {int(vision.confidence*100)}% confidence.",
                     source="AI_OBSERVATION",
                     confidence=vision.confidence,
@@ -86,6 +86,20 @@ class AdvisoryRules:
                     localization_key="ADVISORY_HEALTHY_MAINTENANCE",
                     is_demo=is_demo,
                     category="General Maintenance"
+                ))
+            else:
+                advisories.append(FarmerAdvisoryItem(
+                    advisory_id="ADV_PATHOLOGY_GENERAL",
+                    priority="MEDIUM",
+                    title=f"Crop Observation: {vision.prediction}",
+                    message=f"Foliage symptom observed: {vision.prediction}.",
+                    recommended_action="Inspect field sector and verify symptom progression across multiple plants.",
+                    reason=f"AI vision detected {vision.prediction}.",
+                    source="AI_OBSERVATION",
+                    confidence=vision.confidence,
+                    localization_key="ADVISORY_GENERAL",
+                    is_demo=is_demo,
+                    category="Plant Protection"
                 ))
         elif vision and vision.status == "low_confidence":
             advisories.append(FarmerAdvisoryItem(

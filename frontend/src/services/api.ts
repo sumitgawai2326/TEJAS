@@ -278,6 +278,7 @@ export interface VisionAnalysisResponse {
   is_demo: boolean;
   message: string;
   farmer_guidance?: string;
+  top_predictions?: ClassPrediction[];
   captured_at: string;
 }
 

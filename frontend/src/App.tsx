@@ -887,10 +887,15 @@ export default function App() {
 
                       <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-3">
                         <div className="flex justify-between items-center">
-                          <span className="text-xs text-slate-400 font-bold">PATHOLOGY CLASSIFICATION</span>
-                          <span className="text-xs font-mono text-purple-400 bg-purple-950 px-2 py-0.5 rounded border border-purple-800">
-                            {scanResult.inference_device} ({scanResult.inference_time_ms}ms)
-                          </span>
+                          <span className="text-xs text-slate-400 font-bold">TEJAS AI PATHOLOGY DIAGNOSIS</span>
+                          <div className="flex items-center space-x-1.5">
+                            <span className="text-[10px] font-mono text-cyan-300 bg-cyan-950 px-2 py-0.5 rounded border border-cyan-800">
+                              {scanResult.model_name}
+                            </span>
+                            <span className="text-xs font-mono text-purple-400 bg-purple-950 px-2 py-0.5 rounded border border-purple-800">
+                              {scanResult.inference_device} ({scanResult.inference_time_ms}ms)
+                            </span>
+                          </div>
                         </div>
 
                         <div className="text-2xl font-black text-slate-100">{scanResult.prediction}</div>
@@ -908,6 +913,31 @@ export default function App() {
                             ></div>
                           </div>
                         </div>
+
+                        {/* Top-3 Ranked Predictions */}
+                        {scanResult.top_predictions && scanResult.top_predictions.length > 0 && (
+                          <div className="space-y-2 bg-slate-950/60 p-3 rounded-xl border border-slate-800/80">
+                            <div className="text-[11px] font-mono text-slate-400 font-semibold">TOP RANKED CLASSES</div>
+                            <div className="space-y-1.5">
+                              {scanResult.top_predictions.slice(0, 3).map((item, idx) => (
+                                <div key={idx} className="space-y-0.5">
+                                  <div className="flex justify-between text-xs text-slate-300">
+                                    <span>#{idx + 1} {item.class_name.replace(/_/g, ' ')}</span>
+                                    <b className="font-mono text-slate-200">{(item.confidence * 100).toFixed(1)}%</b>
+                                  </div>
+                                  <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                                    <div 
+                                      className={`h-full rounded-full transition-all duration-300 ${
+                                        idx === 0 ? 'bg-emerald-500' : idx === 1 ? 'bg-cyan-500' : 'bg-slate-600'
+                                      }`} 
+                                      style={{ width: `${Math.max(item.confidence * 100, 1)}%` }}
+                                    ></div>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
 
                         {scanResult.status === 'low_confidence' && (
                           <div className="bg-amber-950/60 border border-amber-800 text-amber-300 p-2.5 rounded-lg text-xs">

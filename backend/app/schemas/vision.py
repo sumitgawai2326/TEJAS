@@ -34,6 +34,7 @@ class VisionAnalysisResponse(BaseModel):
     severity: str = "Unknown"
     message: str = Field(..., description="Farmer-facing advisory status message")
     farmer_guidance: Optional[str] = None
+    top_predictions: Optional[List[Dict[str, Any]]] = None
     timestamp: str = Field(default_factory=lambda: datetime.datetime.now(datetime.timezone.utc).isoformat())
 
 class ModelMetadataSchema(BaseModel):

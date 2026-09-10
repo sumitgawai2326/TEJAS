@@ -29,7 +29,7 @@ class Settings(BaseSettings):
 
     # AI Inference & Gating Settings
     AI_MODE: str = Field(default="auto", validation_alias=AliasChoices("AI_MODE", "AI_ACCELERATOR"))  # 'auto', 'hailo', 'cpu'
-    MODEL_PATH: str = "ai/models/crop_disease_v1.onnx"
+    MODEL_PATH: str = "data/models/tejas_tomato_yolo11n.onnx"
     AI_CONFIDENCE_THRESHOLD: float = Field(default=0.70, validation_alias=AliasChoices("AI_CONFIDENCE_THRESHOLD", "CONFIDENCE_THRESHOLD"))
     MIN_IMAGE_QUALITY_SCORE: float = 0.60
 
