@@ -1,0 +1,64 @@
+﻿# ==============================================================================
+# KrishiDrishti Edge - 6-Parameter Soil Sensor Configuration Template
+# Module: 6-Parameter Soil Intelligence Module (NPK + pH + Moisture + Temperature)
+# Protocol: RS485 MODBUS-RTU
+# ==============================================================================
+# IMPORTANT NOTICE - ZERO HARDWARE HALLUCINATION:
+# Register addresses, baud rate, and slave ID must NOT be guessed.
+# Register addresses must be populated from the exact sensor manufacturer datasheet
+# before enabling REAL HARDWARE mode (DEMO_MODE=false).
+# ==============================================================================
+
+sensor:
+  name: "UNCONFIGURED"
+  protocol: "MODBUS-RTU"
+  baudrate: null # e.g. 4800, 9600 (check datasheet)
+  slave_id: null # e.g. 1, 2 (check datasheet)
+  data_bits: 8
+  parity: "None"
+  stop_bits: 1
+  timeout_seconds: 2.0
+  is_configured: false # Set to true only after filling valid datasheet registers
+
+parameters:
+  nitrogen:
+    register: null # Hex/Decimal address from datasheet (e.g., 0x001e)
+    datatype: null # e.g., "uint16", "int16"
+    scale: null    # e.g., 1.0, 0.1
+    unit: "mg/kg"
+    description: "Available Soil Nitrogen (N)"
+
+  phosphorus:
+    register: null # Hex/Decimal address from datasheet (e.g., 0x001f)
+    datatype: null # e.g., "uint16", "int16"
+    scale: null    # e.g., 1.0, 0.1
+    unit: "mg/kg"
+    description: "Available Soil Phosphorus (P)"
+
+  potassium:
+    register: null # Hex/Decimal address from datasheet (e.g., 0x0020)
+    datatype: null # e.g., "uint16", "int16"
+    scale: null    # e.g., 1.0, 0.1
+    unit: "mg/kg"
+    description: "Available Soil Potassium (K)"
+
+  ph:
+    register: null # Hex/Decimal address from datasheet (e.g., 0x0006)
+    datatype: null # e.g., "uint16", "int16"
+    scale: null    # e.g., 0.1
+    unit: "pH"
+    description: "Soil pH Level"
+
+  moisture:
+    register: null # Hex/Decimal address from datasheet (e.g., 0x0000)
+    datatype: null # e.g., "uint16", "int16"
+    scale: null    # e.g., 0.1
+    unit: "%"
+    description: "Volumetric Soil Moisture Content"
+
+  temperature:
+    register: null # Hex/Decimal address from datasheet (e.g., 0x0001)
+    datatype: null # e.g., "int16"
+    scale: null    # e.g., 0.1
+    unit: "°C"
+    description: "Soil Temperature"

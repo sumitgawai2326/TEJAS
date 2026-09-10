@@ -1,0 +1,68 @@
+# KrishiDrishti Edge — Tomato Pathology Class Map
+# Verified taxonomic mappings from PlantVillage Tomato dataset
+
+crop: "tomato"
+total_classes: 10
+task_type: "single_label_classification"
+
+classes:
+  0:
+    id: "tomato_bacterial_spot"
+    name: "Tomato Bacterial Spot"
+    pathogen: "Xanthomonas perforans / euvesicatoria"
+    type: "bacterial"
+    severity_category: "HIGH"
+  1:
+    id: "tomato_early_blight"
+    name: "Tomato Early Blight"
+    pathogen: "Alternaria solani"
+    type: "fungal"
+    severity_category: "MEDIUM"
+  2:
+    id: "tomato_late_blight"
+    name: "Tomato Late Blight"
+    pathogen: "Phytophthora infestans"
+    type: "oomycete"
+    severity_category: "CRITICAL"
+  3:
+    id: "tomato_leaf_mold"
+    name: "Tomato Leaf Mold"
+    pathogen: "Passalora fulva"
+    type: "fungal"
+    severity_category: "MEDIUM"
+  4:
+    id: "tomato_septoria_leaf_spot"
+    name: "Tomato Septoria Leaf Spot"
+    pathogen: "Septoria lycopersici"
+    type: "fungal"
+    severity_category: "MEDIUM"
+  5:
+    id: "tomato_spider_mites"
+    name: "Tomato Two-Spotted Spider Mite"
+    pathogen: "Tetranychus urticae"
+    type: "pest_infestation"
+    severity_category: "HIGH"
+  6:
+    id: "tomato_target_spot"
+    name: "Tomato Target Spot"
+    pathogen: "Corynespora cassiicola"
+    type: "fungal"
+    severity_category: "MEDIUM"
+  7:
+    id: "tomato_yellow_leaf_curl_virus"
+    name: "Tomato Yellow Leaf Curl Virus"
+    pathogen: "Begomovirus (TYLCV, Whitefly vector)"
+    type: "viral"
+    severity_category: "CRITICAL"
+  8:
+    id: "tomato_mosaic_virus"
+    name: "Tomato Mosaic Virus"
+    pathogen: "Tobamovirus (ToMV)"
+    type: "viral"
+    severity_category: "HIGH"
+  9:
+    id: "tomato_healthy"
+    name: "Tomato Healthy"
+    pathogen: "None (Healthy Tissue)"
+    type: "healthy"
+    severity_category: "NORMAL"

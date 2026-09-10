@@ -1,0 +1,39 @@
+# ==============================================================================
+# KrishiDrishti Edge - Agricultural Dataset Manifest Template
+# ==============================================================================
+# IMPORTANT NOTICE - ZERO AI HALLUCINATION:
+# Do not fill arbitrary classes, accuracy claims, or license information.
+# This template is populated only when an open-source, permissively licensed,
+# and verified agricultural dataset is acquired.
+# ==============================================================================
+
+dataset:
+  name: null                    # e.g., "Verified-Crop-Pathology-V1"
+  source_organization: null     # e.g., University / Agronomic Research Institute
+  source_url: null              # Verified public repository URL
+  license: null                 # e.g., "CC-BY-4.0", "MIT", "Apache-2.0" (Verify commercial / non-commercial terms)
+  version: null                 # Dataset release version
+  release_date: null            # Date of publication
+  is_verified_license: false    # Set to true only after manual review of licensing terms
+
+annotation:
+  task_type: null               # "image_classification" or "object_detection"
+  total_samples: null           # Total number of annotated image files
+  image_format: null            # e.g., "JPEG", "PNG"
+  native_resolution: null       # e.g., "1920x1080", "512x512"
+
+splits:
+  split_policy: "field_stratified" # Ensure images from the same farm/field are not leaked across splits
+  train_split_path: null        # Path relative to data/datasets/
+  val_split_path: null          # Path relative to data/datasets/
+  test_split_path: null         # Path relative to data/datasets/
+  train_count: null
+  val_count: null
+  test_count: null
+
+crops: []                       # List of target crops represented (e.g. ["Tomato", "Potato"])
+classes: []                     # List of exact pathology and healthy class labels
+
+known_limitations:
+  - "Requires field validation under natural lighting and variable camera angles."
+  - "Lab-collected images with clean backgrounds may not generalize directly to in-field outdoor conditions."

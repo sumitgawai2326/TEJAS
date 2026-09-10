@@ -1,0 +1,103 @@
+{
+  "project": "TEJAS",
+  "task": "onnx_export_and_verification",
+  "source_pytorch_weights": "ml\\runs\\train\\tejas_tomato_yolo11n_cls\\weights\\best.pt",
+  "pytorch_weights_sha256": "89ef6b0aa7cd285f533c0b022c718b5d6f91cebfa33f0c133c377f688cff976a",
+  "exported_onnx_path": "data\\models\\tejas_tomato_yolo11n.onnx",
+  "exported_onnx_sha256": "c988ac480a2595eb4ed96c1aaeffb7bae33ccf5418639c8aea9ad7d70128944e",
+  "export_duration_seconds": 0.86,
+  "input_name": "images",
+  "input_shape": [
+    1,
+    3,
+    224,
+    224
+  ],
+  "onnxruntime_samples_tested": 10,
+  "prediction_match_rate": 1.0,
+  "max_absolute_diff": 0.000115,
+  "numerical_status": "PASS",
+  "samples": [
+    {
+      "class": "Tomato_Bacterial_Spot",
+      "image": "0045ba29-ed1b-43b4-afde-719cc7adefdb___GCREC_Bact.Sp 6254.jpg",
+      "pytorch_prediction": "Tomato_Bacterial_Spot",
+      "onnx_prediction": "Tomato_Bacterial_Spot",
+      "prediction_match": true,
+      "max_probability_diff": 1.5e-05
+    },
+    {
+      "class": "Tomato_Early_Blight",
+      "image": "07324d80-17c5-4541-9702-62e9c744ac07___RS_Erly.B 7455.jpg",
+      "pytorch_prediction": "Tomato_Early_Blight",
+      "onnx_prediction": "Tomato_Early_Blight",
+      "prediction_match": true,
+      "max_probability_diff": 0.0
+    },
+    {
+      "class": "Tomato_Healthy",
+      "image": "01c1da17-8d9f-4d69-8a1e-58d37453d3c3___RS_HL 9641.jpg",
+      "pytorch_prediction": "Tomato_Healthy",
+      "onnx_prediction": "Tomato_Healthy",
+      "prediction_match": true,
+      "max_probability_diff": 0.000115
+    },
+    {
+      "class": "Tomato_Late_Blight",
+      "image": "0003faa8-4b27-4c65-bf42-6d9e352ca1a5___RS_Late.B 4946.jpg",
+      "pytorch_prediction": "Tomato_Late_Blight",
+      "onnx_prediction": "Tomato_Late_Blight",
+      "prediction_match": true,
+      "max_probability_diff": 0.0
+    },
+    {
+      "class": "Tomato_Leaf_Mold",
+      "image": "039183dc-a260-49fa-b28a-0c8f11614896___Crnl_L.Mold 6720.jpg",
+      "pytorch_prediction": "Tomato_Leaf_Mold",
+      "onnx_prediction": "Tomato_Leaf_Mold",
+      "prediction_match": true,
+      "max_probability_diff": 1e-06
+    },
+    {
+      "class": "Tomato_Mosaic_Virus",
+      "image": "03b6acc7-41a6-4670-b47c-bef6d4baea18___PSU_CG 2363.jpg",
+      "pytorch_prediction": "Tomato_Mosaic_Virus",
+      "onnx_prediction": "Tomato_Mosaic_Virus",
+      "prediction_match": true,
+      "max_probability_diff": 1.2e-05
+    },
+    {
+      "class": "Tomato_Septoria_Leaf_Spot",
+      "image": "006c018a-bb21-4a24-b1ff-d8b2864a7354___Matt.S_CG 6192.jpg",
+      "pytorch_prediction": "Tomato_Septoria_Leaf_Spot",
+      "onnx_prediction": "Tomato_Septoria_Leaf_Spot",
+      "prediction_match": true,
+      "max_probability_diff": 0.0
+    },
+    {
+      "class": "Tomato_Target_Spot",
+      "image": "00854623-ba28-446d-a1d5-03c0ae3f99d9___Com.G_TgS_FL 7949.jpg",
+      "pytorch_prediction": "Tomato_Target_Spot",
+      "onnx_prediction": "Tomato_Target_Spot",
+      "prediction_match": true,
+      "max_probability_diff": 2e-06
+    },
+    {
+      "class": "Tomato_Two-Spotted_Spider_Mite",
+      "image": "00c8e9a0-1fb8-434b-8981-25511358ddc9___Com.G_SpM_FL 8717.jpg",
+      "pytorch_prediction": "Tomato_Two-Spotted_Spider_Mite",
+      "onnx_prediction": "Tomato_Two-Spotted_Spider_Mite",
+      "prediction_match": true,
+      "max_probability_diff": 3e-06
+    },
+    {
+      "class": "Tomato_Yellow_Leaf_Curl_Virus",
+      "image": "00139ae8-d881-4edb-925f-46584b0bd68c___YLCV_NREC 2944.jpg",
+      "pytorch_prediction": "Tomato_Yellow_Leaf_Curl_Virus",
+      "onnx_prediction": "Tomato_Yellow_Leaf_Curl_Virus",
+      "prediction_match": true,
+      "max_probability_diff": 0.0
+    }
+  ],
+  "timestamp": "2026-09-10 16:14:44 UTC"
+}

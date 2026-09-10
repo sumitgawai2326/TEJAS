@@ -1,0 +1,20 @@
+# KrishiDrishti Edge — Risk Engine Configuration
+# Contains configuration-driven heuristic weights clearly marked as PROTOTYPE HEURISTICS.
+
+version: "1.0.0"
+is_prototype_heuristic: true
+disclaimer: "These heuristic risk weights are for prototype architecture testing only and do NOT represent validated agronomic models."
+
+risk_scoring:
+  enabled: true
+  min_data_completeness_for_confident_risk: 0.35  # Below this, risk status defaults to UNKNOWN
+  ai_confidence_gate: 0.70
+  weights:
+    vision_signal: 0.50
+    soil_stress: 0.30
+    history_trend: 0.20
+
+thresholds:
+  critical_score: 0.75
+  high_score: 0.55
+  moderate_score: 0.30

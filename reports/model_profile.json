@@ -1,0 +1,19 @@
+{
+  "model_path": "data/models/crop_disease_v1.onnx",
+  "iterations": 50,
+  "execution_backend": "OpenCV DNN / CPU (Host Test Environment)",
+  "hardware_status": {
+    "host_cpu_benchmarked": true,
+    "raspberry_pi_5_cpu": "PENDING PHYSICAL BENCHMARK",
+    "raspberry_pi_ai_hat_hailo8": "PENDING PHYSICAL BENCHMARK"
+  },
+  "latency_breakdown_ms": {
+    "image_decode_ms": 62.4,
+    "image_preprocess_ms": 2.04,
+    "model_inference_ms": 2.08,
+    "softmax_postprocess_ms": 0.29,
+    "total_e2e_latency_ms": 66.81
+  },
+  "throughput_fps": 15.0,
+  "timestamp": "2026-09-09 19:20:40 UTC"
+}

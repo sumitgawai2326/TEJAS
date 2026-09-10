@@ -1,0 +1,46 @@
+# TEJAS — YOLO Classification Training Configuration
+# Crop: Tomato
+# Task: Multi-Class Single-Label Leaf Pathology Classification
+# Model: YOLO11n Classification Pretrained Backbone
+
+task: classify
+mode: train
+model: yolo11n-cls.pt
+
+data: ml/data/processed/tomato_cls
+
+# Optimization Hyperparameters
+epochs: 30
+batch: 16
+imgsz: 224
+workers: 2
+patience: 10
+seed: 42
+deterministic: true
+save: true
+save_period: -1
+cache: false
+device: cpu
+
+# Optimizer
+optimizer: AdamW
+lr0: 0.001
+lrf: 0.01
+momentum: 0.9
+weight_decay: 0.0005
+warmup_epochs: 1.0
+
+# Augmentation (Kept realistic for leaf pathology)
+degrees: 15.0
+translate: 0.05
+scale: 0.1
+fliplr: 0.5
+flipud: 0.2
+hsv_h: 0.015
+hsv_s: 0.1
+hsv_v: 0.1
+
+# Logging & Artifacts
+project: ml/runs/train
+name: tejas_tomato_yolo11n_cls
+exist_ok: true

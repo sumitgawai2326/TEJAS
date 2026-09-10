@@ -1,0 +1,36 @@
+dataset_name: PlantVillage-Tomato-Subset
+source: https://github.com/spMohanty/PlantVillage-Dataset
+license: Creative Commons Attribution 4.0 International (CC BY 4.0)
+citation: "Hughes, D., & Salath\xC3\xA9, M. (2015). An open access repository of images\
+  \ on plant health to enable the development of mobile disease diagnostics. arXiv\
+  \ preprint arXiv:1511.08060."
+download_status: AUTHENTIC_DATASET_DOWNLOADED
+verified_status: AUTHENTIC_PLANTVILLAGE_TOMATO
+selected_for_training: true
+notes: Primary baseline dataset for Tomato whole-image multi-class classification.
+  Images subject to lab background bias, necessitating real-world field validation
+  safeguards.
+secondary_datasets:
+- dataset_name: PlantDoc-Tomato-In-The-Wild
+  source: https://github.com/pratikkayal/PlantDoc-Dataset
+  license: Creative Commons Attribution 4.0 International (CC BY 4.0)
+  citation: 'Singh, D., et al. (2020). PlantDoc: a dataset for visual plant disease
+    detection in the wild. ACM CoDS-COMAD.'
+  download_status: VERIFIED_SOURCE_ACCESSIBLE
+  verified_status: ACADEMIC_WILD_BENCHMARK
+  selected_for_training: false
+  notes: Designated for field validation benchmarking and robustness planning.
+commit_hash: 7f7ecc7e1eaca78107e3affe7cb5abd9427e139a
+download_timestamp: 2026-09-09 19:38:02 UTC
+total_real_images: 18160
+class_counts:
+  Tomato_Bacterial_Spot: 2127
+  Tomato_Early_Blight: 1000
+  Tomato_Late_Blight: 1909
+  Tomato_Leaf_Mold: 952
+  Tomato_Septoria_Leaf_Spot: 1771
+  Tomato_Two-Spotted_Spider_Mite: 1676
+  Tomato_Target_Spot: 1404
+  Tomato_Yellow_Leaf_Curl_Virus: 5357
+  Tomato_Mosaic_Virus: 373
+  Tomato_Healthy: 1591

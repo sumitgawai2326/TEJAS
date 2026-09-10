@@ -1,0 +1,77 @@
+# KrishiDrishti Edge — Agronomic Rules Configuration Template
+# IMPORTANT: Zero Hardware / Agronomic Hallucination Policy
+# Unvalidated scientific thresholds MUST NOT be asserted as true facts.
+# Rules default to enabled: false until verified research / extension datasheets are loaded.
+
+version: "1.0.0"
+description: "Configurable crop & soil agronomic reference parameters for edge fusion engine."
+
+crops:
+  tomato:
+    growth_stages:
+      - seedling
+      - vegetative
+      - flowering
+      - fruiting
+      - harvesting
+    parameters:
+      soil_moisture:
+        enabled: false
+        unit: "%"
+        min: null
+        max: null
+        source: "UNCONFIGURED_TEMPLATE"
+        reason: "Reference threshold not configured for local agro-climatic zone."
+      soil_ph:
+        enabled: false
+        unit: "pH"
+        min: null
+        max: null
+        source: "UNCONFIGURED_TEMPLATE"
+        reason: "Reference threshold not configured for local soil type."
+      nitrogen:
+        enabled: false
+        unit: "mg/kg"
+        min: null
+        max: null
+        source: "UNCONFIGURED_TEMPLATE"
+        reason: "Reference threshold not configured."
+      phosphorus:
+        enabled: false
+        unit: "mg/kg"
+        min: null
+        max: null
+        source: "UNCONFIGURED_TEMPLATE"
+        reason: "Reference threshold not configured."
+      potassium:
+        enabled: false
+        unit: "mg/kg"
+        min: null
+        max: null
+        source: "UNCONFIGURED_TEMPLATE"
+        reason: "Reference threshold not configured."
+
+  cotton:
+    growth_stages:
+      - vegetative
+      - squaring
+      - boll_formation
+      - harvesting
+    parameters:
+      soil_moisture:
+        enabled: false
+        unit: "%"
+        min: null
+        max: null
+        source: "UNCONFIGURED_TEMPLATE"
+        reason: "Reference threshold not configured for local agro-climatic zone."
+
+  general:
+    parameters:
+      soil_moisture:
+        enabled: false
+        unit: "%"
+        min: null
+        max: null
+        source: "UNCONFIGURED_TEMPLATE"
+        reason: "General reference threshold not configured."

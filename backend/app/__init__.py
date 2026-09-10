@@ -1,0 +1,1 @@
+"""KrishiDrishti Edge Application Package."""
