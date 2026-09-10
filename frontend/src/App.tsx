@@ -39,6 +39,7 @@ import {
   recordSoilReading,
   fetchDeviceSelfTest,
   fetchRegisteredModels,
+  predictDisease,
   DeviceStatus, 
   FieldModel, 
   VisionAnalysisResponse, 
@@ -48,7 +49,8 @@ import {
   FarmerAdvisoryItem,
   SoilReadingModel,
   SelfTestResponse,
-  ModelRegistryResponse
+  ModelRegistryResponse,
+  DiseasePredictResponse
 } from './services/api';
 
 import en from './i18n/locales/en.json';
@@ -72,6 +74,9 @@ export default function App() {
   const [scanError, setScanError] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [diseasePrediction, setDiseasePrediction] = useState<DiseasePredictResponse | null>(null);
+  const [isPredictingDisease, setIsPredictingDisease] = useState(false);
+  const [diseasePredictError, setDiseasePredictError] = useState<string | null>(null);
 
   // Guided Wizard State (Steps 1 to 7)
   const [wizardStep, setWizardStep] = useState<number>(1);
@@ -181,6 +186,29 @@ export default function App() {
       setPreviewUrl(URL.createObjectURL(file));
       setScanResult(null);
       setScanError(null);
+      setDiseasePrediction(null);
+      setDiseasePredictError(null);
+      handlePredictDisease(file);
+    }
+  };
+
+  const handlePredictDisease = async (fileToScan?: File) => {
+    const targetFile = fileToScan || selectedFile;
+    if (!targetFile) return;
+    setIsPredictingDisease(true);
+    setDiseasePredictError(null);
+    try {
+      const formData = new FormData();
+      formData.append('file', targetFile);
+      const res = await predictDisease(formData);
+      setDiseasePrediction(res);
+      return res;
+    } catch (err: any) {
+      const msg = err.response?.data?.detail || err.message || 'Disease prediction failed';
+      setDiseasePredictError(msg);
+      return null;
+    } finally {
+      setIsPredictingDisease(false);
     }
   };
 
@@ -1202,28 +1230,119 @@ export default function App() {
 
                       <button
                         onClick={() => executeScan(true)}
-                        disabled={isScanning}
+                        disabled={isScanning || isPredictingDisease}
                         className="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-1.5 rounded-lg text-xs font-bold flex items-center space-x-1.5"
                       >
                         {isScanning ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Camera className="w-3.5 h-3.5" />}
                         <span>Capture</span>
                       </button>
+
+                      {selectedFile && (
+                        <button
+                          onClick={() => handlePredictDisease()}
+                          disabled={isPredictingDisease}
+                          className="bg-cyan-600 hover:bg-cyan-500 text-white px-3.5 py-1.5 rounded-lg text-xs font-bold flex items-center space-x-1.5 shadow-md"
+                        >
+                          {isPredictingDisease ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Zap className="w-3.5 h-3.5" />}
+                          <span>Classify (YOLO11n)</span>
+                        </button>
+                      )}
                     </div>
                   </div>
 
+                  {diseasePredictError && (
+                    <div className="bg-rose-950/80 border border-rose-800 text-rose-300 p-3 rounded-xl text-xs flex items-center space-x-2">
+                      <AlertTriangle className="w-4 h-4 shrink-0 text-rose-400" />
+                      <span>{diseasePredictError}</span>
+                    </div>
+                  )}
+
                   <div className="grid grid-cols-2 gap-4">
+                    {/* Left: Viewfinder / Image Preview */}
                     <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 flex flex-col items-center justify-center min-h-[280px]">
                       {previewUrl ? (
-                        <img src={previewUrl} alt="Scan preview" className="max-h-60 object-contain rounded-lg" />
+                        <div className="relative w-full flex flex-col items-center">
+                          <img src={previewUrl} alt="Scan preview" className="max-h-60 object-contain rounded-lg shadow-lg border border-slate-700/60" />
+                          {diseasePrediction?.image && (
+                            <div className="mt-2 text-[11px] font-mono text-slate-400 bg-slate-950 px-2.5 py-0.5 rounded border border-slate-800">
+                              Input: {diseasePrediction.image.width} &times; {diseasePrediction.image.height} px
+                            </div>
+                          )}
+                        </div>
                       ) : (
                         <div className="text-center text-slate-500 space-y-2">
                           <Camera className="w-10 h-10 mx-auto" />
                           <div className="text-xs">Live Viewfinder Preview</div>
+                          <div className="text-[11px] text-slate-600">Upload or capture an image to classify</div>
                         </div>
                       )}
                     </div>
 
-                    {scanResult ? (
+                    {/* Right: Disease Inference Output */}
+                    {isPredictingDisease ? (
+                      <div className="bg-slate-800/80 border border-slate-700 rounded-xl p-6 flex flex-col items-center justify-center space-y-3 min-h-[280px]">
+                        <RefreshCw className="w-8 h-8 text-cyan-400 animate-spin" />
+                        <div className="text-sm font-bold text-slate-200">Running YOLO11n ONNX Inference...</div>
+                        <div className="text-xs text-slate-400">Normalizing RGB (224&times;224) &bull; OpenCV DNN Engine</div>
+                      </div>
+                    ) : diseasePrediction ? (
+                      <div className="bg-slate-800/80 border border-slate-700 rounded-xl p-4 space-y-3">
+                        {/* Top Banner */}
+                        <div className="flex justify-between items-center">
+                          <div className="text-xs font-bold text-slate-400">TEJAS AI PATHOLOGY DIAGNOSIS</div>
+                          <div className="flex items-center space-x-1.5">
+                            <span className="text-[10px] font-mono text-cyan-300 bg-cyan-950 px-2 py-0.5 rounded border border-cyan-800">
+                              {diseasePrediction.model}
+                            </span>
+                            <span className="text-[10px] font-bold text-emerald-300 bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800">
+                              {(diseasePrediction.prediction.confidence * 100).toFixed(1)}% CONFIDENCE
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Top-1 Diagnosis */}
+                        <div className="bg-slate-900/90 border border-slate-800 p-3 rounded-xl space-y-1">
+                          <div className="text-[11px] font-mono text-slate-400">PRIMARY PREDICTION (TOP-1)</div>
+                          <div className="text-xl font-black text-emerald-400">
+                            {diseasePrediction.prediction.class_name.replace(/_/g, ' ')}
+                          </div>
+                        </div>
+
+                        {/* Top-3 Ranked Predictions */}
+                        <div className="space-y-2 bg-slate-900/60 p-3 rounded-xl border border-slate-800/80">
+                          <div className="text-[11px] font-mono text-slate-400 font-semibold">TOP-3 RANKED CLASSES</div>
+                          <div className="space-y-1.5">
+                            {diseasePrediction.top_predictions.map((item, idx) => (
+                              <div key={idx} className="space-y-0.5">
+                                <div className="flex justify-between text-xs text-slate-300">
+                                  <span>#{idx + 1} {item.class_name.replace(/_/g, ' ')}</span>
+                                  <b className="font-mono text-slate-200">{(item.confidence * 100).toFixed(1)}%</b>
+                                </div>
+                                <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                                  <div 
+                                    className={`h-full rounded-full transition-all duration-300 ${
+                                      idx === 0 ? 'bg-emerald-500' : idx === 1 ? 'bg-cyan-500' : 'bg-slate-600'
+                                    }`}
+                                    style={{ width: `${Math.max(item.confidence * 100, 1)}%` }}
+                                  ></div>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Responsible AI Disclaimer */}
+                        <div className="bg-slate-950 p-2.5 rounded-lg border border-slate-800 text-[11px] text-slate-400 space-y-1">
+                          <div className="text-amber-400 font-semibold flex items-center space-x-1">
+                            <ShieldAlert className="w-3.5 h-3.5 shrink-0" />
+                            <span>99.63% top-1 accuracy on the held-out PlantVillage test set.</span>
+                          </div>
+                          <div>
+                            Prototype model trained on laboratory-style PlantVillage images; field validation is still required.
+                          </div>
+                        </div>
+                      </div>
+                    ) : scanResult ? (
                       <div className="bg-slate-800/80 border border-slate-700 rounded-xl p-4 space-y-3">
                         <div className="flex justify-between items-center">
                           <div className="text-xs font-bold text-slate-400">DIAGNOSIS RESULT</div>
@@ -1260,7 +1379,7 @@ export default function App() {
                         </div>
                       </div>
                     ) : (
-                      <div className="bg-slate-800/40 border border-slate-700 rounded-xl p-6 text-center text-slate-500 flex items-center justify-center">
+                      <div className="bg-slate-800/40 border border-slate-700 rounded-xl p-6 text-center text-slate-500 flex items-center justify-center min-h-[280px]">
                         <div>Ready to capture or upload leaf photo.</div>
                       </div>
                     )}

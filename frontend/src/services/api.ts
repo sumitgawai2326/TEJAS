@@ -393,4 +393,31 @@ export const fetchFieldAdvisories = async (fieldId: number, language?: string): 
   return (await api.get(`/fields/${fieldId}/advisories`, { params })).data;
 };
 
+// Phase 10 Real Disease Inference Types
+export interface ClassPrediction {
+  class_name: string;
+  confidence: number;
+}
+
+export interface ImageDimension {
+  width: number;
+  height: number;
+}
+
+export interface DiseasePredictResponse {
+  success: boolean;
+  model: string;
+  prediction: ClassPrediction;
+  top_predictions: ClassPrediction[];
+  image: ImageDimension;
+}
+
+// Phase 10 Tomato Disease Inference API Call
+export const predictDisease = async (formData: FormData): Promise<DiseasePredictResponse> => {
+  const response = await api.post('/v1/disease/predict', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' }
+  });
+  return response.data;
+};
+
 export default api;
